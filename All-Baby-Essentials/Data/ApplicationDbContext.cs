@@ -47,6 +47,9 @@ namespace All_Baby_Essentials.Data
             modelBuilder.Entity<WishlistItem>().HasIndex(w => new { w.UserId, w.SessionId, w.ProductId }).IsUnique();
 
             modelBuilder.Entity<OrderItem>().HasIndex(o => new { o.OrderId, o.ProductId }).IsUnique();
+     
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category).WithMany(c => c.Products).HasForeignKey(p => p.CategoryId).OnDelete(DeleteBehavior.Cascade);
         }
 
 
