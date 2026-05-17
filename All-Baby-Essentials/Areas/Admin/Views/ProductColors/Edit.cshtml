@@ -1,0 +1,111 @@
+@model All_Baby_Essentials.Areas.Admin.ViewModels.ProductColorVM
+@{
+    ViewData["Title"] = "Edit Color Variant";
+}
+
+@section Title {
+    Products
+}
+
+@section SubTitle {
+    Edit Color Variant: @Model.ColorName
+}
+
+@section ActionBtn {
+    <a asp-action="Index" asp-route-productId="@Model.ProductId" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Colors
+    </a>
+}
+
+<div class="row p-3 justify-content-center">
+    <div class="col-md-6">
+        <div class="card card-primary card-outline shadow-sm border rounded">
+            <div class="card-header bg-light">
+                <h5 class="card-title m-0 fw-bold"><i class="fas fa-edit me-1 text-primary"></i> Edit Color Variant</h5>
+            </div>
+            <form asp-controller="ProductColors" asp-action="Edit" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ProductId" />
+                <input type="hidden" asp-for="ColorId" />
+                <input type="hidden" name="existingImageUrl" value="@Model.ImageUrl" />
+
+                <div class="card-body">
+                    <!-- Read-Only Info -->
+                    <div class="mb-4 p-3 bg-light border rounded">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="fw-bold me-2 text-dark">Color Swatch:</span>
+                            <div class="rounded-circle border border-2 shadow-sm" style="width: 32px; height: 32px; background-color: @Model.ColorHexCode;"></div>
+                        </div>
+                        <div>
+                            <span class="fw-bold text-dark">Color Name:</span> <strong class="text-primary">@Model.ColorName</strong>
+                        </div>
+                        <div>
+                            <span class="fw-bold text-dark">Color HEX Code:</span> <code>@Model.ColorHexCode</code>
+                        </div>
+                    </div>
+
+                    <!-- Stock Quantity -->
+                    <div class="form-group mb-3">
+                        <label asp-for="StockQuantity" class="form-label fw-bold">Stock Quantity</label>
+                        <input type="number" asp-for="StockQuantity" class="form-control" placeholder="0" min="0" required />
+                        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                    </div>
+
+                    <!-- Current Image Preview -->
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold d-block">Current Variant Image</label>
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img src="/img/@Model.ImageUrl" alt="Current Image" class="img-thumbnail mb-2" style="max-height: 150px; object-fit: contain;" />
+                        }
+                        else
+                        {
+                            <span class="text-muted d-block mb-2">No image currently assigned.</span>
+                        }
+                    </div>
+
+                    <!-- Upload New Image -->
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Upload New Image (Optional)</label>
+                        <input type="file" name="imageFile" class="form-control" accept="image/*" onchange="previewImage(event)" />
+                        <small class="text-muted">Replaces the current image if uploaded.</small>
+                    </div>
+
+                    <!-- New Preview Thumbnail -->
+                    <div class="form-group mb-2 text-center" id="variantPreviewContainer" style="display:none;">
+                        <label class="form-label fw-bold d-block">New Image Preview</label>
+                        <img id="variantPreview" src="#" alt="New Preview" class="img-thumbnail" style="max-height: 150px; object-fit: contain;" />
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white border-top">
+                    <button type="submit" class="btn btn-primary w-100"><i class="fas fa-save"></i> Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const previewContainer = document.getElementById('variantPreviewContainer');
+            const previewImg = document.getElementById('variantPreview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                previewImg.src = '#';
+                previewContainer.style.display = 'none';
+            }
+        }
+    </script>
+}

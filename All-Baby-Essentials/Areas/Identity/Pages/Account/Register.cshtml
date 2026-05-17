@@ -1,0 +1,100 @@
+@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="auth-form-header">
+    <div class="auth-icon"><i class="bi bi-person-plus-fill"></i></div>
+    <h2>Create your account</h2>
+    <p>Join thousands of happy KiddoMart families</p>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="km-validation-summary" role="alert">
+        <div asp-validation-summary="ModelOnly"></div>
+    </div>
+}
+
+<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" novalidate>
+
+    <div class="km-field">
+        <input asp-for="Input.FullName"
+               type="text"
+               id="reg-fullname"
+               placeholder=" "
+               autocomplete="name"
+               aria-required="true" />
+        <label for="reg-fullname">Full name</label>
+        <span asp-validation-for="Input.FullName" class="field-validation-error"></span>
+    </div>
+
+    <div class="km-field">
+        <input asp-for="Input.Email"
+               type="email"
+               id="reg-email"
+               placeholder=" "
+               autocomplete="username"
+               aria-required="true" />
+        <label for="reg-email">Email address</label>
+        <span asp-validation-for="Input.Email" class="field-validation-error"></span>
+    </div>
+
+    <div class="km-field km-field-password">
+        <input asp-for="Input.Password"
+               type="password"
+               id="reg-password"
+               placeholder=" "
+               autocomplete="new-password"
+               aria-required="true"
+               aria-describedby="pwd-strength-desc" />
+        <label for="reg-password">Password</label>
+        <button type="button" class="km-pwd-toggle" aria-label="Show password">
+            <i class="bi bi-eye"></i>
+        </button>
+        <span asp-validation-for="Input.Password" class="field-validation-error"></span>
+        <div class="km-pwd-strength" id="pwd-strength-desc" aria-label="Password strength">
+            <span class="km-pwd-strength-bar"></span>
+            <span class="km-pwd-strength-bar"></span>
+            <span class="km-pwd-strength-bar"></span>
+            <span class="km-pwd-strength-bar"></span>
+        </div>
+    </div>
+
+    <div class="km-field km-field-password" style="margin-bottom:1.5rem;">
+        <input asp-for="Input.ConfirmPassword"
+               type="password"
+               id="reg-confirm"
+               placeholder=" "
+               autocomplete="new-password"
+               aria-required="true" />
+        <label for="reg-confirm">Confirm password</label>
+        <button type="button" class="km-pwd-toggle" aria-label="Show password">
+            <i class="bi bi-eye"></i>
+        </button>
+        <span asp-validation-for="Input.ConfirmPassword" class="field-validation-error"></span>
+    </div>
+
+    <label class="km-check-label mb-4">
+        <input type="checkbox" required />
+        <span>I agree to KiddoMart's <a href="#" class="auth-link">Terms</a> and <a href="#" class="auth-link">Privacy Policy</a></span>
+    </label>
+
+    <button id="registerSubmit" type="submit" class="km-btn-auth primary">
+        <i class="bi bi-person-check-fill"></i>
+        Create Account
+    </button>
+
+</form>
+
+<div class="auth-switch-text">
+    Already have an account?
+    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="auth-link">
+        Sign in
+    </a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

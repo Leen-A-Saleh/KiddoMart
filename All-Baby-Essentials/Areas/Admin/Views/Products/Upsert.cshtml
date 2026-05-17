@@ -1,0 +1,118 @@
+@model All_Baby_Essentials.Areas.Admin.ViewModels.ProductFormVM
+
+@{
+    ViewData["Title"] = Model?.Id == 0 ? "Create" : "Edit";
+}
+
+@* @section Title {
+        Products
+} *@
+
+@section SubTitle {
+    @(Model?.Id == 0 ? "Create new product" : "Edit product")
+}
+
+<form class="form-horizontal" asp-area="Admin" asp-controller="Products" enctype="multipart/form-data" method="post">
+
+    @Html.AntiForgeryToken()
+
+    @if (Model?.Id != null)
+    {
+        <input type="hidden" asp-for="Id" />
+    }
+
+    <div class="card-body">
+        <div class="form-group row">
+
+            <label asp-for="Name" class="col-12 col-form-label"></label>
+            <div class="col-12">
+                <input type="text" asp-for="Name" class="form-control" placeholder="Product Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <label asp-for="Description" class="col-12 col-form-label mt-2"></label>
+            <div class="col-12">
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Product Description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <label asp-for="Price" class="col-12 col-form-label mt-2"></label>
+            <div class="col-12">
+                <input type="number" asp-for="Price" class="form-control" placeholder="0.00" step="0.01" min="0.5" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <label asp-for="DiscountPercentage" class="col-12 col-form-label mt-2">Discount Percentage (%)</label>
+            <div class="col-12">
+                <input type="number" asp-for="DiscountPercentage" class="form-control" placeholder="e.g. 20 for 20%" step="0.1" min="0" max="100" />
+                <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
+            </div>
+
+            <label asp-for="StockQuantity" class="col-12 col-form-label mt-2"></label>
+            <div class="col-12">
+                <input type="number" asp-for="StockQuantity" class="form-control" placeholder="0" min="0" />
+                <span asp-validation-for="StockQuantity" class="text-danger"></span>
+            </div>
+
+            <label asp-for="CategoryId" class="col-12 col-form-label mt-2"></label>
+            <div class="col-12">
+                <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control">
+                    <option value="">-- Select Category --</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <label class="col-12 col-form-label mt-3">Product Images</label>
+            <div class="col-12">
+                <input type="file" name="ImageFiles" class="form-control" accept="image/*" multiple onchange="previewImages(event)" />
+                <small class="text-muted">You can select multiple images. The first will be the main image.</small>
+            </div>
+
+            <div class="col-12 mt-3" id="imagePreviews"></div>
+
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary">
+            @(Model?.Id == 0 ? "Add" : "Update")
+        </button>
+        <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="btn btn-secondary ml-2">
+            Cancel
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function previewImages(event) {
+            const input = event.target;
+            const container = document.getElementById('imagePreviews');
+            container.innerHTML = '';
+
+            if (input.files && input.files.length > 0) {
+                Array.from(input.files).forEach((file, index) => {
+                    const wrapper = document.createElement('div');
+                    wrapper.classList.add('d-inline-block', 'mr-2', 'mb-2', 'text-center');
+
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    img.alt = file.name;
+                    img.classList.add('img-thumbnail');
+                    img.style.maxWidth = '150px';
+                    wrapper.appendChild(img);
+
+                    if (index === 0) {
+                        const badge = document.createElement('div');
+                        badge.innerHTML = '<span class="badge badge-primary mt-1">Main</span>';
+                        wrapper.appendChild(badge);
+                    }
+
+                    container.appendChild(wrapper);
+                });
+            }
+        }
+    </script>
+}

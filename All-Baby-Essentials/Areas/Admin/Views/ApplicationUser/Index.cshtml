@@ -1,0 +1,34 @@
+@model List<All_Baby_Essentials.Areas.Admin.ViewModels.ApplicationUserVM>
+
+@section SubTitle {
+        Total Users: @Model.Count
+}
+
+
+<div class="card-body">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th class="width:50px">Gender</th>
+                <th>Date Of Birth</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>@user.Gender</td>
+                <td>@user.DateOfBirth</td>
+                <td>@user.Role</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+

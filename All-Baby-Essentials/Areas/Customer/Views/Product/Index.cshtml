@@ -1,0 +1,260 @@
+@model All_Baby_Essentials.Areas.Customer.ViewModels.PaginatedResultVM<All_Baby_Essentials.Areas.Customer.ViewModels.ProductDetailsVM>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<!-- Page Header -->
+<div class="km-page-header" data-aos="fade-down">
+    <div class="container-fluid" style="max-width:1280px;">
+        <h1>Our Products</h1>
+        <p>Discover our wide range of premium baby essentials.</p>
+        <div class="km-breadcrumb justify-content-center mt-3">
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+            <span class="sep">/</span>
+            <span style="color:#fff;">Products</span>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="max-width:1280px; margin-bottom:5rem;">
+    <div class="row g-5">
+
+        <!-- Sidebar -->
+        <aside class="col-lg-3" data-aos="fade-right">
+            <div class="bg-white p-4 rounded-4 shadow-sm border mb-4">
+                <form method="get" asp-action="Index">
+                    <!-- Search -->
+                    <div class="mb-4">
+                        <label class="km-label">Search</label>
+                        <div class="position-relative">
+                            <input type="text" name="search" value="@ViewBag.Search" class="km-form-control pe-5" placeholder="Search products..." />
+                            <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="mb-4">
+                        <label class="km-label mb-3">Categories</label>
+                        <div class="d-flex flex-column gap-2">
+                            <label class="d-flex align-items-center gap-2" style="cursor:pointer;">
+                                <input type="radio" name="categoryId" value="" @(ViewBag.CategoryId == null ? "checked" : "") />
+                                <span class="text-muted">All Categories</span>
+                            </label>
+                            @if (ViewBag.Categories != null)
+                            {
+                                foreach (var cat in ViewBag.Categories)
+                                {
+                                    <label class="d-flex align-items-center gap-2" style="cursor:pointer;">
+                                        <input type="radio" name="categoryId" value="@cat.Id" @(ViewBag.CategoryId == cat.Id ? "checked" : "") />
+                                        <span class="text-muted">@cat.Name</span>
+                                    </label>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Price Filter -->
+                    <div class="mb-4">
+                        <label class="km-label mb-3">Price Range</label>
+                        <div class="d-flex gap-2">
+                            <input type="number" name="minPrice" value="@ViewBag.MinPrice" class="km-form-control" placeholder="Min $" />
+                            <input type="number" name="maxPrice" value="@ViewBag.MaxPrice" class="km-form-control" placeholder="Max $" />
+                        </div>
+                    </div>
+
+                    <!-- Color Filter -->
+                    @if (ViewBag.Colors is List<All_Baby_Essentials.Models.Color> colorsList && colorsList.Any())
+                    {
+                        <div class="mb-4">
+                            <label class="km-label mb-3">Filter by Color</label>
+                            <div class="d-flex gap-2 flex-wrap align-items-center">
+                                <!-- "All" color option -->
+                                <label class="color-filter-option rounded-circle border border-2 position-relative cursor-pointer d-flex align-items-center justify-content-center" 
+                                       style="width: 32px; height: 32px; background: linear-gradient(135deg, #eee 0%, #777 100%); cursor: pointer; transition: all 0.2s; @(ViewBag.ColorId == null ? "border-color: var(--km-primary) !important; transform: scale(1.1);" : "")"
+                                       title="All Colors">
+                                    <input type="radio" name="colorId" value="" class="d-none" @(ViewBag.ColorId == null ? "checked" : "") onchange="this.form.submit()" />
+                                </label>
+                                
+                                @foreach (var c in colorsList)
+                                {
+                                    bool isSelected = ViewBag.ColorId == c.Id;
+                                    <label class="color-filter-option rounded-circle border border-2 position-relative cursor-pointer d-flex align-items-center justify-content-center" 
+                                           style="width: 32px; height: 32px; background-color: @c.HexCode; cursor: pointer; transition: all 0.2s; @(isSelected ? "border-color: var(--km-primary) !important; transform: scale(1.1); box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--km-primary);" : "")"
+                                           title="@c.Name">
+                                        <input type="radio" name="colorId" value="@c.Id" class="d-none" @(isSelected ? "checked" : "") onchange="this.form.submit()" />
+                                        @if (isSelected)
+                                        {
+                                            <i class="bi bi-check text-white" style="font-size: 1rem; text-shadow: 0 1px 2px rgba(0,0,0,0.5);"></i>
+                                        }
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Sort -->
+                    <div class="mb-4">
+                        <label class="km-label mb-3">Sort By</label>
+                        <select name="sortBy" class="km-form-control">
+                            <option value="">Newest Arrivals</option>
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                            <option value="popular">Popularity</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="km-btn km-btn-primary km-btn-block">
+                        Apply Filters
+                    </button>
+                    @if (ViewBag.Search != null || ViewBag.CategoryId != null || ViewBag.MinPrice != null || ViewBag.MaxPrice != null || ViewBag.SortBy != null || ViewBag.ColorId != null)
+                    {
+                        <a asp-action="Index" class="km-btn km-btn-ghost km-btn-block mt-2">Clear All</a>
+                    }
+                </form>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="col-lg-9" data-aos="fade-up">
+            
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="text-muted mb-0">Showing <strong>@Model.Items.Count()</strong> products @(Model.TotalPages > 1 ? $" (Page {Model.PageNumber} of {Model.TotalPages})" : "")</p>
+            </div>
+
+            @if (!Model.Items.Any())
+            {
+                <div class="text-center py-5 bg-white rounded-4 border">
+                    <i class="bi bi-search" style="font-size:3rem; color:var(--km-border);"></i>
+                    <h3 class="mt-3">No products found</h3>
+                    <p class="text-muted">Try adjusting your search or filters to find what you're looking for.</p>
+                    <a asp-action="Index" class="km-btn km-btn-outline mt-3">Clear Filters</a>
+                </div>
+            }
+            else
+            {
+                <div class="km-product-grid">
+                    @foreach (var item in Model.Items)
+                    {
+                        var img = item.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? item.Images.FirstOrDefault()?.ImageUrl;
+                        var imgSrc = img != null ? $"/img/{img}" : "/img/no-image.png";
+
+                        <article class="km-product-card @(item.StockQuantity <= 0 ? "out-of-stock" : "")">
+                            @if (item.DiscountPercentage.HasValue && item.DiscountPercentage.Value > 0)
+                            {
+                                <span class="km-product-badge sale">-@item.DiscountPercentage.Value.ToString("0")%</span>
+                            }
+                            <div class="km-product-img-wrap">
+                                @if (item.StockQuantity <= 0)
+                                {
+                                    <div class="km-out-of-stock-overlay">
+                                        <span class="km-out-of-stock-label">Out of Stock</span>
+                                    </div>
+                                }
+                                <a asp-area="Customer" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Id" aria-label="View @item.Name">
+                                    <img src="@imgSrc" alt="@item.Name" loading="lazy" />
+                                </a>
+                                <div class="km-product-actions">
+                                    <button type="button" class="km-product-action-btn wide add-to-cart-btn" data-id="@item.Id" aria-label="Add to cart" @(item.StockQuantity <= 0 ? "disabled" : "")>
+                                        <i class="bi bi-bag-plus"></i> Add
+                                    </button>
+                                    <button type="button" class="km-product-action-btn add-to-wishlist-btn" data-id="@item.Id" aria-label="Add to wishlist">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                    <button type="button" class="km-product-action-btn quick-view-btn" data-id="@item.Id" aria-label="Quick view">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="km-product-body">
+                                <div class="km-product-category">@(string.IsNullOrEmpty(item.CategoryName) ? "Uncategorized" : item.CategoryName)</div>
+                                <div class="km-product-name">
+                                    <a asp-area="Customer" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Id">@item.Name</a>
+                                </div>
+                                <div class="km-product-price d-flex align-items-center">
+                                    @if (item.DiscountPercentage.HasValue && item.DiscountPercentage.Value > 0)
+                                    {
+                                        var discountedPrice = item.Price * (1 - (item.DiscountPercentage.Value / 100));
+                                        <span class="km-price">$@discountedPrice.ToString("0.00")</span>
+                                        <span class="km-price-original">$@item.Price.ToString("0.00")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="km-price">$@item.Price.ToString("0.00")</span>
+                                    }
+
+                                    @if (item.StockQuantity > 0)
+                                    {
+                                        <span class="km-stock-label @(item.StockQuantity < 5 ? "low-stock" : "")">
+                                            @(item.StockQuantity < 5 ? $"Only {item.StockQuantity} left" : $"{item.StockQuantity} in stock")
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="km-stock-label out-stock">Out of stock</span>
+                                    }
+                                </div>
+                            </div>
+                        </article>
+                    }
+                </div>
+
+                @if (Model.TotalPages > 1)
+                {
+                    <nav aria-label="Page navigation" class="mt-5">
+                        <ul class="pagination justify-content-center">
+                            @if (Model.HasPrevious)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" asp-action="Index"
+                                       asp-route-page="@(Model.PageNumber - 1)"
+                                       asp-route-categoryId="@ViewBag.CategoryId"
+                                       asp-route-search="@ViewBag.Search"
+                                       asp-route-sortBy="@ViewBag.SortBy"
+                                       asp-route-colorId="@ViewBag.ColorId">Previous</a>
+                                </li>
+                            }
+
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                    <a class="page-link" asp-action="Index"
+                                       asp-route-page="@i"
+                                       asp-route-categoryId="@ViewBag.CategoryId"
+                                       asp-route-search="@ViewBag.Search"
+                                       asp-route-sortBy="@ViewBag.SortBy"
+                                       asp-route-colorId="@ViewBag.ColorId">@i</a>
+                                </li>
+                            }
+
+                            @if (Model.HasNext)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" asp-action="Index"
+                                       asp-route-page="@(Model.PageNumber + 1)"
+                                       asp-route-categoryId="@ViewBag.CategoryId"
+                                       asp-route-search="@ViewBag.Search"
+                                       asp-route-sortBy="@ViewBag.SortBy"
+                                       asp-route-colorId="@ViewBag.ColorId">Next</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                }
+            }
+        </main>
+    </div>
+</div>
+<style>
+/* Override bootstrap pagination to match theme */
+.pagination { gap: 0.5rem; }
+.page-item .page-link { 
+    border-radius: var(--km-radius-sm); border: 1px solid var(--km-border); 
+    color: var(--km-text); padding: 0.5rem 1rem; font-weight: 500;
+}
+.page-item.active .page-link { 
+    background-color: var(--km-primary); border-color: var(--km-primary); color: #fff;
+}
+.page-item .page-link:hover { 
+    background-color: var(--km-primary-light); color: var(--km-primary);
+}
+</style>

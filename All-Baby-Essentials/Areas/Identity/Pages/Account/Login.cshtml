@@ -1,0 +1,75 @@
+@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<div class="auth-form-header">
+    <div class="auth-icon"><i class="bi bi-person-fill"></i></div>
+    <h2>Welcome back</h2>
+    <p>Sign in to your KiddoMart account</p>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="km-validation-summary" role="alert">
+        <div asp-validation-summary="ModelOnly"></div>
+    </div>
+}
+
+<form id="account" method="post" novalidate>
+
+    <div class="km-field">
+        <input asp-for="Input.Email"
+               type="email"
+               id="login-email"
+               placeholder=" "
+               autocomplete="username"
+               aria-required="true"
+               aria-describedby="email-error" />
+        <label for="login-email">Email address</label>
+        <span asp-validation-for="Input.Email" class="field-validation-error" id="email-error"></span>
+    </div>
+
+    <div class="km-field km-field-password">
+        <input asp-for="Input.Password"
+               type="password"
+               id="login-password"
+               placeholder=" "
+               autocomplete="current-password"
+               aria-required="true"
+               aria-describedby="password-error" />
+        <label for="login-password">Password</label>
+        <button type="button" class="km-pwd-toggle" aria-label="Show password">
+            <i class="bi bi-eye"></i>
+        </button>
+        <span asp-validation-for="Input.Password" class="field-validation-error" id="password-error"></span>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <label class="km-check-label">
+            <input asp-for="Input.RememberMe" type="checkbox" />
+            <span>Remember me</span>
+        </label>
+        <a asp-page="./ForgotPassword" class="auth-link" style="font-size:0.875rem;">
+            Forgot password?
+        </a>
+    </div>
+
+    <button id="login-submit" type="submit" class="km-btn-auth primary">
+        <i class="bi bi-box-arrow-in-right"></i>
+        Sign In
+    </button>
+
+</form>
+
+<div class="auth-switch-text">
+    New to KiddoMart?
+    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="auth-link">
+        Create an account
+    </a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

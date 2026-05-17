@@ -1,0 +1,100 @@
+@{
+    ViewData["Title"] = "Order Confirmed";
+}
+
+<div class="km-container" style="padding: 5rem 1.5rem; text-align: center;">
+    <div class="km-success-wrapper km-fade-up">
+        <div class="km-success-anim">
+            <div class="km-success-ring"></div>
+            <div class="km-success-check"><i class="bi bi-check-lg"></i></div>
+        </div>
+
+        <h1 style="font-size:2rem; margin:1.5rem 0 0.75rem; color:var(--km-text);">
+            Order Confirmed! 🎉
+        </h1>
+        <p style="color:var(--km-muted); font-size:1.05rem; max-width:480px; margin:0 auto 2.5rem; line-height:1.7;">
+            Thank you for shopping with KiddoMart! Your order has been placed successfully.
+            We'll send you an email confirmation shortly.
+        </p>
+
+        <div class="km-success-steps">
+            <div class="km-success-step active">
+                <div class="km-step-icon"><i class="bi bi-check-circle-fill"></i></div>
+                <span>Order Placed</span>
+            </div>
+            <div class="km-step-line"></div>
+            <div class="km-success-step">
+                <div class="km-step-icon"><i class="bi bi-box-seam"></i></div>
+                <span>Processing</span>
+            </div>
+            <div class="km-step-line"></div>
+            <div class="km-success-step">
+                <div class="km-step-icon"><i class="bi bi-truck"></i></div>
+                <span>Shipped</span>
+            </div>
+            <div class="km-step-line"></div>
+            <div class="km-success-step">
+                <div class="km-step-icon"><i class="bi bi-house-check"></i></div>
+                <span>Delivered</span>
+            </div>
+        </div>
+
+        <div class="km-success-actions">
+            <a asp-area="Customer" asp-controller="Orders" asp-action="Index"
+               class="km-btn km-btn-primary km-btn-lg">
+                <i class="bi bi-bag-check"></i> View My Orders
+            </a>
+            <a asp-area="Customer" asp-controller="Product" asp-action="Index"
+               class="km-btn km-btn-ghost km-btn-lg">
+                <i class="bi bi-shop"></i> Continue Shopping
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.km-success-wrapper { max-width: 600px; margin: 0 auto; }
+.km-success-anim {
+    position: relative; width: 100px; height: 100px; margin: 0 auto;
+}
+.km-success-ring {
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 4px solid var(--km-pink-light);
+    animation: pulse-ring 1.5s ease-out infinite;
+}
+@@keyframes pulse-ring {
+    0% { transform: scale(0.95); opacity: 1; }
+    100% { transform: scale(1.3); opacity: 0; }
+}
+.km-success-check {
+    position: absolute; inset: 0; border-radius: 50%;
+    background: linear-gradient(135deg, var(--km-pink), var(--km-pink-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; color: #fff;
+    box-shadow: 0 8px 32px rgba(255,107,157,0.4);
+    animation: pop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@@keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+.km-success-steps {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; margin-bottom: 2.5rem; flex-wrap: wrap;
+}
+.km-success-step {
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    font-size: 0.75rem; font-weight: 600; color: var(--km-muted);
+}
+.km-success-step.active { color: var(--km-pink); }
+.km-step-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--km-border); color: var(--km-muted);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; transition: var(--transition);
+}
+.km-success-step.active .km-step-icon { background: var(--km-pink); color: #fff; }
+.km-step-line {
+    flex: 1; height: 2px; background: var(--km-border);
+    min-width: 40px; max-width: 80px;
+}
+.km-success-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+</style>

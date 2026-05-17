@@ -1,0 +1,315 @@
+@model All_Baby_Essentials.Areas.Customer.ViewModels.HomeVM
+@{
+    ViewData["Title"] = "Home";
+    ViewData["MetaDescription"] = "Shop premium baby essentials at KiddoMart. Clothing, toys, feeding gear and more — delivered with love.";
+}
+
+<!-- ══ HERO CAROUSEL ══ -->
+<div id="heroCarousel" class="carousel slide km-hero-carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="15000">
+    <div class="carousel-inner h-100">
+        
+        <!-- Slide 1 -->
+        <div class="carousel-item slideOne active h-100">
+            <div class="km-hero-overlay"></div>
+            <div class="km-hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <span class="km-tag" style="background:rgba(255,255,255,0.2); color:#fff; backdrop-filter:blur(4px);">Premium Quality</span>
+                <h1>Everything Your Baby Needs</h1>
+                <p>Safe, comfortable, and trusted products. From the first smile to every milestone — KiddoMart is here for every moment.</p>
+                <div class="d-flex gap-3 flex-wrap mt-4">
+                    <a asp-area="Customer" asp-controller="Product" asp-action="Index" class="km-btn km-btn-accent km-btn-lg">
+                        <i class="bi bi-bag"></i> Shop Now
+                    </a>
+                    <a asp-area="Customer" asp-controller="Category" asp-action="Index" class="km-btn km-btn-outline km-btn-lg" style="color:#fff; border-color:rgba(255,255,255,0.5);">
+                        <i class="bi bi-grid"></i> Explore Categories
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item slideTwo h-100">
+            <div class="km-hero-overlay"></div>
+            <div class="km-hero-content">
+                <span class="km-tag" style="background:rgba(255,255,255,0.2); color:#fff; backdrop-filter:blur(4px);">Happy Families</span>
+                <h1>Safe, Comfortable & Trusted</h1>
+                <p>Curated with care for your little ones. Discover our latest collection of essentials designed to make parenting joyful.</p>
+                <div class="d-flex gap-3 flex-wrap mt-4">
+                    <a asp-area="Customer" asp-controller="Product" asp-action="Index" class="km-btn km-btn-accent km-btn-lg">
+                        <i class="bi bi-star"></i> Discover New Arrivals
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="km-carousel-controls">
+        <button class="km-carousel-btn" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev" aria-label="Previous slide">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="km-carousel-btn" type="button" data-bs-target="#heroCarousel" data-bs-slide="next" aria-label="Next slide">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<!-- ══ FEATURES STRIP ══ -->
+<section class="py-4 border-bottom bg-white" aria-label="Store features">
+    <div class="container-fluid" style="max-width:1280px;" data-aos="fade-up">
+        <div class="row g-4 text-center text-md-start">
+            <div class="col-6 col-md-3 d-flex align-items-center justify-content-center justify-content-md-start gap-3">
+                <i class="bi bi-truck fs-2" style="color:var(--km-accent);"></i>
+                <div><strong class="d-block text-dark">Free Shipping</strong><span class="text-muted small">On orders over $50</span></div>
+            </div>
+            <div class="col-6 col-md-3 d-flex align-items-center justify-content-center justify-content-md-start gap-3">
+                <i class="bi bi-shield-check fs-2" style="color:var(--km-accent);"></i>
+                <div><strong class="d-block text-dark">Safe & Certified</strong><span class="text-muted small">All products tested</span></div>
+            </div>
+            <div class="col-6 col-md-3 d-flex align-items-center justify-content-center justify-content-md-start gap-3">
+                <i class="bi bi-arrow-counterclockwise fs-2" style="color:var(--km-accent);"></i>
+                <div><strong class="d-block text-dark">Easy Returns</strong><span class="text-muted small">30-day return policy</span></div>
+            </div>
+            <div class="col-6 col-md-3 d-flex align-items-center justify-content-center justify-content-md-start gap-3">
+                <i class="bi bi-headset fs-2" style="color:var(--km-accent);"></i>
+                <div><strong class="d-block text-dark">24/7 Support</strong><span class="text-muted small">Always here for you</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ LATEST PRODUCTS ══ -->
+<section class="py-5 my-5" aria-labelledby="latest-heading">
+    <div class="container-fluid" style="max-width:1280px;">
+        <div class="km-section-header" data-aos="fade-up">
+            <span class="km-tag">Just Arrived</span>
+            <h2 id="latest-heading">Latest Products</h2>
+            <p>Fresh picks added to our collection — discover what's new.</p>
+        </div>
+        <div class="km-product-grid">
+            @foreach (var item in Model.LatestProducts)
+            {
+                var img = item.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? item.Images.FirstOrDefault()?.ImageUrl;
+                var imgSrc = img != null ? $"/img/{img}" : "/img/no-image.png";
+
+                <article class="km-product-card @(item.StockQuantity <= 0 ? "out-of-stock" : "")" data-aos="fade-up" data-aos-delay="100">
+                    @if (item.DiscountPercentage.HasValue && item.DiscountPercentage.Value > 0)
+                    {
+                        <span class="km-product-badge sale">-@item.DiscountPercentage.Value.ToString("0")%</span>
+                    }
+                    <div class="km-product-img-wrap">
+                        @if (item.StockQuantity <= 0)
+                        {
+                            <div class="km-out-of-stock-overlay">
+                                <span class="km-out-of-stock-label">Out of Stock</span>
+                            </div>
+                        }
+                        <a asp-area="Customer" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Id" aria-label="View @item.Name">
+                            <img src="@imgSrc" alt="@item.Name" loading="lazy" />
+                        </a>
+                        <div class="km-product-actions">
+                            <button type="button" class="km-product-action-btn wide add-to-cart-btn" data-id="@item.Id" aria-label="Add to cart">
+                                <i class="bi bi-bag-plus"></i> Add
+                            </button>
+                            <button type="button" class="km-product-action-btn add-to-wishlist-btn" data-id="@item.Id" aria-label="Add to wishlist">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                            <button type="button" class="km-product-action-btn quick-view-btn" data-id="@item.Id" aria-label="Quick view">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="km-product-body">
+                        <div class="km-product-category">@(string.IsNullOrEmpty(item.CategoryName) ? "Uncategorized" : item.CategoryName)</div>
+                        <div class="km-product-name">
+                            <a asp-area="Customer" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Id">@item.Name</a>
+                        </div>
+                        <div class="km-product-price d-flex align-items-center">
+                            @if (item.DiscountPercentage.HasValue && item.DiscountPercentage.Value > 0)
+                            {
+                                var discountedPrice = item.Price * (1 - (item.DiscountPercentage.Value / 100));
+                                <span class="km-price">$@discountedPrice.ToString("0.00")</span>
+                                <span class="km-price-original">$@item.Price.ToString("0.00")</span>
+                            }
+                            else
+                            {
+                                <span class="km-price">$@item.Price.ToString("0.00")</span>
+                            }
+
+                            @if (item.StockQuantity > 0)
+                            {
+                                <span class="km-stock-label @(item.StockQuantity < 5 ? "low-stock" : "")">
+                                    @(item.StockQuantity < 5 ? $"Only {item.StockQuantity} left" : $"{item.StockQuantity} in stock")
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="km-stock-label out-stock">Out of stock</span>
+                            }
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a asp-area="Customer" asp-controller="Product" asp-action="Index" class="km-btn km-btn-outline km-btn-lg">
+                View All Products <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ══ POPULAR PRODUCTS ══ -->
+@if (Model.PopularProducts.Any())
+{
+    <section class="py-5 my-5 bg-white" aria-labelledby="popular-heading">
+        <div class="container-fluid" style="max-width:1280px; padding-top:3rem; padding-bottom:3rem;">
+            <div class="km-section-header" data-aos="fade-up">
+                <span class="km-tag">Top Picks</span>
+                <h2 id="popular-heading">Popular Products</h2>
+                <p>Loved by thousands of parents around the world.</p>
+            </div>
+            <div class="km-product-grid">
+                @foreach (var item in Model.PopularProducts)
+                {
+                    var img = item.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? item.Images.FirstOrDefault()?.ImageUrl;
+                    var imgSrc = img != null ? $"/img/{img}" : "/img/no-image.png";
+
+                    <article class="km-product-card @(item.StockQuantity <= 0 ? "out-of-stock" : "")" data-aos="fade-up" data-aos-delay="100">
+                        @if (item.DiscountPercentage.HasValue && item.DiscountPercentage.Value > 0)
+                        {
+                            <span class="km-product-badge sale">-@item.DiscountPercentage.Value.ToString("0")%</span>
+                        }
+                        else
+                        {
+                            <span class="km-product-badge">Popular</span>
+                        }
+                        <div class="km-product-img-wrap">
+                            @if (item.StockQuantity <= 0)
+                            {
+                                <div class="km-out-of-stock-overlay">
+                                    <span class="km-out-of-stock-label">Out of Stock</span>
+                                </div>
+                            }
+                            <a asp-area="Customer" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Id" aria-label="View @item.Name">
+                                <img src="@imgSrc" alt="@item.Name" loading="lazy" />
+                            </a>
+                            <div class="km-product-actions">
+                                <button type="button" class="km-product-action-btn wide add-to-cart-btn" data-id="@item.Id" aria-label="Add to cart">
+                                    <i class="bi bi-bag-plus"></i> Add
+                                </button>
+                                <button type="button" class="km-product-action-btn add-to-wishlist-btn" data-id="@item.Id" aria-label="Add to wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <button type="button" class="km-product-action-btn quick-view-btn" data-id="@item.Id" aria-label="Quick view">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="km-product-body">
+                            <div class="km-product-category">@(string.IsNullOrEmpty(item.CategoryName) ? "Uncategorized" : item.CategoryName)</div>
+                            <div class="km-product-name">
+                                <a asp-area="Customer" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Id">@item.Name</a>
+                            </div>
+                            <div class="km-product-price d-flex align-items-center">
+                                @if (item.DiscountPercentage.HasValue && item.DiscountPercentage.Value > 0)
+                                {
+                                    var discountedPrice = item.Price * (1 - (item.DiscountPercentage.Value / 100));
+                                    <span class="km-price">$@discountedPrice.ToString("0.00")</span>
+                                    <span class="km-price-original">$@item.Price.ToString("0.00")</span>
+                                }
+                                else
+                                {
+                                    <span class="km-price">$@item.Price.ToString("0.00")</span>
+                                }
+
+                                @if (item.StockQuantity > 0)
+                                {
+                                    <span class="km-stock-label @(item.StockQuantity < 5 ? "low-stock" : "")">
+                                        @(item.StockQuantity < 5 ? $"Only {item.StockQuantity} left" : $"{item.StockQuantity} in stock")
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="km-stock-label out-stock">Out of stock</span>
+                                }
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<!-- ══ TESTIMONIALS ══ -->
+@if (Model.Testimonials.Any())
+{
+    <section class="py-5 my-5" aria-labelledby="testimonials-heading">
+        <div class="container-fluid" style="max-width:1280px;">
+            <div class="km-section-header" data-aos="fade-up">
+                <span class="km-tag">Happy Parents</span>
+                <h2 id="testimonials-heading">What Our Customers Say</h2>
+            </div>
+            <div class="row g-4 justify-content-center">
+                @foreach (var item in Model.Testimonials.Take(3))
+                {
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="bg-white p-4 rounded-4 shadow-sm border h-100 d-flex flex-column" style="transition:transform 0.3s; cursor:pointer;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                            <div class="d-flex mb-3" style="color:var(--km-gold);">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <i class="bi @(i <= item.Rating ? "bi-star-fill" : "bi-star") me-1"></i>
+                                }
+                            </div>
+                            <p class="text-muted mb-4 flex-grow-1" style="font-size:1.05rem; line-height:1.6;">"@item.Content"</p>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold" style="width:40px; height:40px; background:var(--km-primary);">
+                                    @(string.IsNullOrWhiteSpace(item.User?.FullName) ? "U" : item.User.FullName.Substring(0, 1).ToUpper())
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-dark">@item.User?.FullName</div>
+                                    <div class="small text-muted">Verified Buyer</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<!-- ══ ADD TESTIMONIAL ══ -->
+@if (User.Identity!.IsAuthenticated)
+{
+    <section class="py-5 bg-white" aria-labelledby="add-testimonial-heading">
+        <div class="container-fluid" style="max-width:600px;" data-aos="fade-up">
+            <div class="km-section-header mb-4">
+                <span class="km-tag">Share Your Experience</span>
+                <h2 id="add-testimonial-heading">Leave a Testimonial</h2>
+            </div>
+            <div class="bg-white p-4 p-md-5 rounded-4 shadow-lg border border-light">
+                <form asp-action="AddTestimonial" method="post">
+                    <div class="mb-4">
+                        <label for="testimonial-content" class="km-label">Your message</label>
+                        <textarea id="testimonial-content" name="content" rows="4" class="km-form-control" placeholder="Tell us about your experience..." required aria-required="true"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="testimonial-rating" class="km-label">Rating</label>
+                        <select id="testimonial-rating" name="rating" class="km-form-control" required aria-required="true">
+                            <option value="">Select a rating</option>
+                            <option value="5">⭐⭐⭐⭐⭐ — Excellent</option>
+                            <option value="4">⭐⭐⭐⭐ — Very Good</option>
+                            <option value="3">⭐⭐⭐ — Good</option>
+                            <option value="2">⭐⭐ — Fair</option>
+                            <option value="1">⭐ — Poor</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="km-btn km-btn-primary km-btn-block km-btn-lg">
+                        <i class="bi bi-send"></i> Submit Testimonial
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+}

@@ -1,0 +1,71 @@
+@model All_Baby_Essentials.Areas.Customer.ViewModels.ProductDetailsVM
+
+<div class="row g-0">
+    <!-- Image Gallery -->
+    <div class="col-md-6 bg-light d-flex align-items-center justify-content-center p-4">
+        @{
+            var mainImage = Model.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? Model.Images.FirstOrDefault()?.ImageUrl;
+            var imgSrc = mainImage != null ? $"/img/{mainImage}" : "/img/no-image.png";
+        }
+        <img src="@imgSrc" alt="@Model.Name" class="img-fluid rounded shadow-sm" style="max-height:400px; object-fit:contain;" />
+    </div>
+
+    <!-- Details -->
+    <div class="col-md-6 p-4 p-lg-5 d-flex flex-column justify-content-center">
+        <div class="km-product-category text-muted text-uppercase mb-2" style="font-size:0.8rem; letter-spacing:1px; font-weight:600;">
+            @(string.IsNullOrEmpty(Model.CategoryName) ? "Uncategorized" : Model.CategoryName)
+        </div>
+        
+        <h2 class="mb-3" style="font-family:var(--km-font-brand); font-weight:800; color:var(--km-text);">@Model.Name</h2>
+        
+        <div class="d-flex align-items-center mb-4">
+            <div class="km-product-price fs-3" style="color:var(--km-primary); font-weight:800;">
+                @if (Model.DiscountPercentage.HasValue && Model.DiscountPercentage.Value > 0)
+                {
+                    var discountedPrice = Model.Price * (1 - (Model.DiscountPercentage.Value / 100));
+                    <span>$@discountedPrice.ToString("0.00")</span>
+                    <span class="text-muted ms-2 text-decoration-line-through fs-5">$@Model.Price.ToString("0.00")</span>
+                }
+                else
+                {
+                    <span>$@Model.Price.ToString("0.00")</span>
+                }
+            </div>
+            @if (Model.StockQuantity > 0)
+            {
+                <span class="badge bg-success ms-auto rounded-pill px-3 py-2">In Stock (@Model.StockQuantity)</span>
+            }
+            else
+            {
+                <span class="badge bg-danger ms-auto rounded-pill px-3 py-2">Out of Stock</span>
+            }
+        </div>
+
+        <p class="text-muted mb-4" style="line-height:1.7;">
+            @if(!string.IsNullOrEmpty(Model.Description) && Model.Description.Length > 150)
+            {
+                @Model.Description.Substring(0, 150)
+                <span>...</span>
+            }
+            else
+            {
+                @Model.Description
+            }
+        </p>
+
+        <div class="d-flex gap-3 mt-auto">
+            <button type="button" class="km-btn km-btn-primary flex-grow-1 km-btn-lg add-to-cart-btn" data-id="@Model.Id" @(Model.StockQuantity <= 0 ? "disabled" : "")>
+                <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+            <button type="button" class="km-btn km-btn-outline km-btn-lg add-to-wishlist-btn" data-id="@Model.Id" title="Add to Wishlist">
+                <i class="bi bi-heart"></i>
+            </button>
+        </div>
+        
+        <div class="text-center mt-3">
+            <a asp-area="Customer" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@Model.Id" class="text-muted text-decoration-none small fw-bold">
+                View Full Details <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>

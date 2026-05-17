@@ -1,0 +1,78 @@
+@model IEnumerable<All_Baby_Essentials.Models.Testimonial>
+
+@{
+    ViewData["Title"] = "Testimonials Moderation";
+}
+
+@section Title { Reviews }
+@section SubTitle { Testimonials }
+
+@section ActionBtn {
+    <h5 class="mb-0 fw-semibold">Testimonials Moderation</h5>
+}
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-hover table-sm align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Customer</th>
+                    <th>Rating</th>
+                    <th>Testimonial</th>
+                    <th>Status</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white fw-bold"
+                                     style="width:34px;height:34px;font-size:12px;flex-shrink:0;">
+                                    @(string.IsNullOrWhiteSpace(item.User?.FullName) ? "U" : item.User.FullName.Substring(0, 1).ToUpper())
+                                </div>
+                                <span class="text-sm fw-semibold">@item.User?.FullName</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-1">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <i class="fas fa-star @(i <= item.Rating ? "text-warning" : "text-muted opacity-25")" style="font-size:11px;"></i>
+                                }
+                            </div>
+                        </td>
+                        <td style="max-width:380px;">
+                            <span class="text-sm d-block" style="white-space:normal;">@item.Content</span>
+                        </td>
+                        <td>
+                            <span class="badge @(item.IsApproved ? "bg-success" : "bg-secondary")">
+                                @(item.IsApproved ? "Approved" : "Pending")
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <form asp-action="ToggleTestimonialStatus" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit"
+                                        class="btn btn-sm @(item.IsApproved ? "btn-outline-warning" : "btn-outline-success")">
+                                    <i class="fas @(item.IsApproved ? "fa-times" : "fa-check") me-1"></i>
+                                    @(item.IsApproved ? "Reject" : "Approve")
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (!Model.Any())
+        {
+            <div class="text-center text-muted py-5">
+                <i class="fas fa-quote-left fa-3x mb-3 opacity-25"></i>
+                <p>No testimonials yet.</p>
+            </div>
+        }
+    </div>
+</div>

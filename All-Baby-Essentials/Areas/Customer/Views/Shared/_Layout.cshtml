@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>@(ViewData["Title"] != null ? ViewData["Title"] + " — " : "")KiddoMart</title>
+    <meta name="description" content="@(ViewData["MetaDescription"] ?? "KiddoMart – Premium baby essentials delivered to your door. Shop clothing, toys, feeding, and more.")" />
+    <meta property="og:title" content="@(ViewData["Title"] ?? "KiddoMart")" />
+    <meta property="og:description" content="KiddoMart – Premium baby essentials." />
+    <meta property="og:type" content="website" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Bootstrap (utilities) -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- KiddoMart Design System -->
+    <link rel="stylesheet" href="~/css/kiddomart.css" asp-append-version="true" />
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+
+<!-- Skip to content (accessibility) -->
+<a href="#main-content" class="visually-hidden-focusable" style="position:fixed;top:1rem;left:1rem;z-index:9999;padding:.5rem 1rem;background:var(--km-primary);color:#fff;border-radius:8px;text-decoration:none;">Skip to content</a>
+
+<!-- Loader -->
+<div id="pre-loader" role="status" aria-label="Loading">
+    <div class="km-spinner"></div>
+</div>
+
+<!-- Promo Bar -->
+<div class="km-promo-bar" id="promoBar">
+    🎁 Free shipping on orders over $50 — <a asp-area="Customer" asp-controller="Product" asp-action="Index">Shop Now</a>
+    <button class="km-promo-close" onclick="document.getElementById('promoBar').remove()" aria-label="Close promotion">✕</button>
+</div>
+
+<!-- ═══ HEADER ═══ -->
+<header class="km-header" id="mainHeader" role="banner">
+    <div class="km-header-inner">
+
+        <!-- Mobile menu toggle -->
+        <button class="km-mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <!-- Logo -->
+        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="km-logo" aria-label="KiddoMart home">
+            <img src="~/img/KiddoMart.png" alt="KiddoMart" />
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav aria-label="Main navigation">
+            <ul class="km-nav-desktop">
+                <li><a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-area="Customer" asp-controller="Category" asp-action="Index">Categories</a></li>
+                <li><a asp-area="Customer" asp-controller="Product" asp-action="Index">Products</a></li>
+                <li><a asp-area="Customer" asp-controller="Contact" asp-action="Index">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Search -->
+        <form class="km-search-bar" asp-area="Customer" asp-controller="Product" asp-action="Index" method="get" role="search">
+            <button type="submit" aria-label="Search"><i class="bi bi-search"></i></button>
+            <input type="text" name="Search" placeholder="Search for products..." aria-label="Search products" />
+        </form>
+
+        <!-- Actions -->
+        <div class="km-header-actions">
+
+            <!-- Wishlist Trigger -->
+            <button class="km-header-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#wishlistOffcanvas" aria-controls="wishlistOffcanvas" aria-label="Wishlist">
+                <i class="bi bi-heart"></i>
+                @if (ViewBag.WishlistCount > 0)
+                {
+                    <span class="km-badge-count" id="wishlistBadgeCount">@ViewBag.WishlistCount</span>
+                }
+            </button>
+
+            <!-- Cart Trigger -->
+            <button class="km-header-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" aria-label="Shopping cart">
+                <i class="bi bi-bag"></i>
+                <span class="km-badge-count" id="cartCountBadge">@(ViewBag.CartCount ?? 0)</span>
+            </button>
+
+            <!-- User -->
+            @if (User.Identity!.IsAuthenticated)
+            {
+                <div class="km-user-dropdown" id="userDropdown">
+                    <button class="km-header-btn" id="userDropdownBtn" aria-label="Account menu" aria-haspopup="true">
+                        <i class="bi bi-person-circle"></i>
+                    </button>
+                    <div class="km-user-dropdown-menu" role="menu">
+                        <a asp-area="Customer" asp-controller="Profile" asp-action="Index" role="menuitem">
+                            <i class="bi bi-person"></i> My Profile
+                        </a>
+                        <a asp-area="Customer" asp-controller="Orders" asp-action="Index" role="menuitem">
+                            <i class="bi bi-bag-check"></i> My Orders
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <hr />
+                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" role="menuitem">
+                                <i class="bi bi-speedometer2"></i> Admin Panel
+                            </a>
+                        }
+                        <hr />
+                        <a asp-area="Identity" asp-page="/Account/Logout"
+                           asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "Customer" })" role="menuitem">
+                            <i class="bi bi-box-arrow-right"></i> Sign Out
+                        </a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Login" class="km-btn km-btn-primary km-btn-sm">
+                    <i class="bi bi-person"></i> Sign In
+                </a>
+            }
+        </div>
+
+    </div>
+</header>
+
+<!-- Mobile Nav Overlay -->
+<div class="km-mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <div class="km-mobile-nav-panel">
+        <div class="km-mobile-nav-header">
+            <img src="~/img/KiddoMart.png" alt="KiddoMart" style="height:36px;" />
+            <button class="km-mobile-nav-close" id="mobileMenuClose" aria-label="Close menu">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <ul class="km-mobile-nav-links">
+            <li><a asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="bi bi-house me-2"></i>Home</a></li>
+            <li><a asp-area="Customer" asp-controller="Category" asp-action="Index"><i class="bi bi-grid me-2"></i>Categories</a></li>
+            <li><a asp-area="Customer" asp-controller="Product" asp-action="Index"><i class="bi bi-box me-2"></i>Products</a></li>
+            <li><a data-bs-toggle="offcanvas" href="#wishlistOffcanvas" role="button" aria-controls="wishlistOffcanvas"><i class="bi bi-heart me-2"></i>Wishlist</a></li>
+            <li><a data-bs-toggle="offcanvas" href="#cartOffcanvas" role="button" aria-controls="cartOffcanvas"><i class="bi bi-bag me-2"></i>Cart</a></li>
+            <li><a asp-area="Customer" asp-controller="Orders" asp-action="Index"><i class="bi bi-bag-check me-2"></i>My Orders</a></li>
+            <li><a asp-area="Customer" asp-controller="Contact" asp-action="Index"><i class="bi bi-envelope me-2"></i>Contact</a></li>
+        </ul>
+        <div class="mt-4">
+            @if (!User.Identity!.IsAuthenticated)
+            {
+                <a asp-area="Identity" asp-page="/Account/Login" class="km-btn km-btn-primary km-btn-block">Sign In</a>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<main id="main-content" role="main" style="min-height:70vh;">
+    @RenderBody()
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="km-footer" role="contentinfo" data-aos="fade-up">
+    <div class="km-footer-top">
+
+        <div class="km-footer-brand">
+            <img src="~/img/KiddoMart.png" alt="KiddoMart" />
+            <p>Your trusted destination for premium baby essentials. Curated with love for every little one and every proud parent.</p>
+            <div class="km-footer-socials">
+                <a href="#" class="km-footer-social" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="km-footer-social" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="km-footer-social" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                <a href="#" class="km-footer-social" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            </div>
+        </div>
+
+        <div class="km-footer-col">
+            <h5>Shop</h5>
+            <ul>
+                <li><a asp-area="Customer" asp-controller="Product" asp-action="Index">All Products</a></li>
+                <li><a asp-area="Customer" asp-controller="Category" asp-action="Index">Categories</a></li>
+                <li><a asp-area="Customer" asp-controller="Product" asp-action="Index" asp-route-Sort="newest">New Arrivals</a></li>
+                <li><a asp-area="Customer" asp-controller="Product" asp-action="Index" asp-route-Sort="popular">Best Sellers</a></li>
+            </ul>
+        </div>
+
+        <div class="km-footer-col">
+            <h5>Customer</h5>
+            <ul>
+                <li><a asp-area="Customer" asp-controller="Orders" asp-action="Index">My Orders</a></li>
+                <li><a asp-area="Customer" asp-controller="Profile" asp-action="Index">My Account</a></li>
+                <li><a href="#" data-bs-toggle="offcanvas" data-bs-target="#wishlistOffcanvas">Wishlist</a></li>
+                <li><a asp-area="Customer" asp-controller="Contact" asp-action="Index">Contact Support</a></li>
+            </ul>
+        </div>
+
+        <div class="km-footer-col">
+            <h5>Stay Updated</h5>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;">Subscribe to our newsletter for exclusive offers and updates.</p>
+            <div class="km-footer-newsletter">
+                <form class="km-newsletter-form">
+                    <input type="email" placeholder="Your email address" required aria-label="Email address" />
+                    <button type="submit" aria-label="Subscribe"><i class="bi bi-send"></i></button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="km-footer-bottom">
+        <p>© @DateTime.Now.Year <strong style="color:#fff;">KiddoMart</strong>. All rights reserved.</p>
+        <div class="km-payment-icons" aria-label="Accepted payment methods">
+            <i class="bi bi-credit-card" title="Visa/Mastercard"></i>
+            <i class="bi bi-paypal" title="PayPal"></i>
+            <i class="bi bi-apple" title="Apple Pay"></i>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to top -->
+<button class="km-scroll-top" id="scrollTopBtn" aria-label="Back to top">
+    <i class="bi bi-arrow-up"></i>
+</button>
+
+<!-- ═══ OFFCANVAS CART ═══ -->
+<div class="offcanvas offcanvas-end km-offcanvas" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+  <div class="offcanvas-header km-offcanvas-header">
+    <h5 class="offcanvas-title km-offcanvas-title" id="cartOffcanvasLabel"><i class="bi bi-bag me-2"></i>Your Cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body km-offcanvas-body" id="cartOffcanvasBody">
+      <div class="text-center py-5">
+          <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- ═══ OFFCANVAS WISHLIST ═══ -->
+<div class="offcanvas offcanvas-end km-offcanvas" tabindex="-1" id="wishlistOffcanvas" aria-labelledby="wishlistOffcanvasLabel">
+  <div class="offcanvas-header km-offcanvas-header">
+    <h5 class="offcanvas-title km-offcanvas-title" id="wishlistOffcanvasLabel"><i class="bi bi-heart me-2"></i>Your Wishlist</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body km-offcanvas-body" id="wishlistOffcanvasBody">
+      <div class="text-center py-5">
+          <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- ═══ QUICK VIEW MODAL ═══ -->
+<div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="border:none; border-radius:var(--km-radius); overflow:hidden; box-shadow:var(--km-shadow-lg);">
+      <div class="modal-header" style="border-bottom:1px solid var(--km-border); padding:1rem 1.5rem;">
+        <h5 class="modal-title" id="quickViewModalLabel" style="font-family:var(--km-font-brand); font-weight:800;">Product Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0" id="quickViewModalBody">
+          <div class="text-center py-5">
+              <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- AOS Animation Library -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 50
+    });
+
+    // Loader
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('pre-loader');
+        if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 500); }
+    });
+
+    // Mobile menu
+    const mobileNav    = document.getElementById('mobileNav');
+    const mobileBtn    = document.getElementById('mobileMenuBtn');
+    const mobileClose  = document.getElementById('mobileMenuClose');
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('open');
+            mobileBtn.setAttribute('aria-expanded', mobileNav.classList.contains('open'));
+        });
+    }
+    if (mobileClose) mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+    if (mobileNav) mobileNav.addEventListener('click', e => { if (e.target === mobileNav) mobileNav.classList.remove('open'); });
+
+    // Header scroll shrink & Scroll to top
+    const header = document.getElementById('mainHeader');
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            if(header) header.classList.add('shrink');
+        } else {
+            if(header) header.classList.remove('shrink');
+        }
+        if (scrollBtn) scrollBtn.classList.toggle('visible', window.scrollY > 300);
+    });
+    if (scrollBtn) scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // User dropdown toggle
+    const userBtn = document.getElementById('userDropdownBtn');
+    const userWrap = document.getElementById('userDropdown');
+    if (userBtn && userWrap) {
+        userBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userWrap.classList.toggle('show');
+        });
+        document.addEventListener('click', () => userWrap.classList.remove('show'));
+    }
+</script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

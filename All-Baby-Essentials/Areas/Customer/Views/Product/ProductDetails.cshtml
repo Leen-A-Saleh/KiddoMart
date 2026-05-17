@@ -1,0 +1,338 @@
+@model All_Baby_Essentials.Areas.Customer.ViewModels.ProductDetailsVM
+@{
+    ViewData["Title"] = Model.Name;
+    var mainImage = Model.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? Model.Images.FirstOrDefault()?.ImageUrl;
+    var mainImgSrc = mainImage != null ? $"/img/{mainImage}" : "/img/no-image.png";
+}
+
+<!-- Page Header -->
+<div class="km-page-header" style="padding: 3rem 0; background: linear-gradient(135deg, var(--km-primary-dark) 0%, var(--km-primary) 100%);">
+    <div class="container-fluid" style="max-width:1280px;">
+        <div class="km-breadcrumb mt-0">
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+            <span class="sep">/</span>
+            <a asp-area="Customer" asp-controller="Product" asp-action="Index">Products</a>
+            <span class="sep">/</span>
+            <span style="color:#fff;">@Model.Name</span>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-5" style="max-width:1280px; margin-bottom:3rem;">
+    <div class="row g-5">
+        
+        <!-- Product Images -->
+        <div class="col-lg-6" data-aos="fade-right">
+            <div class="bg-white p-4 rounded-4 shadow-sm border mb-4 text-center">
+                <img id="mainProductImage" src="@mainImgSrc" alt="@Model.Name" class="img-fluid rounded" style="max-height:500px; object-fit:contain; transition: transform 0.3s ease;" />
+            </div>
+            
+            @if (Model.Images.Count > 1)
+            {
+                <div class="d-flex gap-3 overflow-auto pb-2" id="productThumbnails">
+                    @foreach (var img in Model.Images)
+                    {
+                        var thumbSrc = $"/img/{img.ImageUrl}";
+                        <div class="bg-white rounded-3 border p-2 cursor-pointer product-thumb-item" style="width:80px; height:80px; cursor:pointer;" onclick="document.getElementById('mainProductImage').src='@thumbSrc'; document.querySelectorAll('.product-thumb-item').forEach(e=>e.classList.remove('border-primary')); this.classList.add('border-primary');">
+                            <img src="@thumbSrc" class="w-100 h-100 object-fit-contain" alt="Thumbnail" />
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-lg-6" data-aos="fade-left">
+            <div class="km-product-category text-muted text-uppercase mb-2" style="font-size:0.9rem; letter-spacing:1px; font-weight:600;">
+                @(string.IsNullOrEmpty(Model.CategoryName) ? "Uncategorized" : Model.CategoryName)
+            </div>
+            
+            <h1 class="mb-3" style="font-family:var(--km-font-brand); font-weight:800; color:var(--km-text);">@Model.Name</h1>
+            
+            <div class="d-flex align-items-center mb-4 gap-3">
+                <div class="km-product-price fs-2" style="color:var(--km-primary); font-weight:800;">
+                    @if (Model.DiscountPercentage.HasValue && Model.DiscountPercentage.Value > 0)
+                    {
+                        var discountedPrice = Model.Price * (1 - (Model.DiscountPercentage.Value / 100));
+                        <span>$@discountedPrice.ToString("0.00")</span>
+                        <span class="text-muted ms-3 text-decoration-line-through fs-4">$@Model.Price.ToString("0.00")</span>
+                        <span class="badge bg-danger fs-6 align-middle ms-2">@Model.DiscountPercentage.Value.ToString("0")% OFF</span>
+                    }
+                    else
+                    {
+                        <span>$@Model.Price.ToString("0.00")</span>
+                    }
+                </div>
+                
+                @if (Model.StockQuantity > 0)
+                {
+                    <span class="badge bg-success ms-auto rounded-pill px-3 py-2 fs-6"><i class="bi bi-check-circle me-1"></i> In Stock (@Model.StockQuantity)</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger ms-auto rounded-pill px-3 py-2 fs-6"><i class="bi bi-x-circle me-1"></i> Out of Stock</span>
+                }
+            </div>
+
+            <!-- Available Color Swatches -->
+            @if (Model.ProductColors != null && Model.ProductColors.Any())
+            {
+                <div class="mb-4 bg-white p-3 border rounded-4 shadow-sm">
+                    <label class="form-label fw-bold mb-2 text-dark fs-6">Color: <span id="selectedColorName" class="text-muted fw-normal ms-1">Choose a color</span></label>
+                    <div class="d-flex gap-3 align-items-center flex-wrap">
+                        @foreach (var pc in Model.ProductColors)
+                        {
+                            var pcImgSrc = pc.ImageUrl != null ? $"/img/{pc.ImageUrl}" : mainImgSrc;
+                            <div class="color-swatch-item rounded-circle border border-2 shadow-sm cursor-pointer p-1" 
+                                 style="width: 38px; height: 38px; background-color: @pc.ColorHexCode; cursor: pointer; transition: all 0.2s;"
+                                 data-color-name="@pc.ColorName"
+                                 data-stock="@pc.StockQuantity"
+                                 data-image="@pcImgSrc"
+                                 title="@pc.ColorName"
+                                 onclick="selectColor(this)">
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            <div class="mb-4">
+                <p class="text-muted" style="line-height:1.8; font-size:1.05rem;">
+                    @Model.Description
+                </p>
+            </div>
+
+            <hr style="border-color:var(--km-border);">
+
+            <!-- Actions -->
+            <div class="d-flex flex-column gap-3 mt-4">
+                <div class="d-flex gap-3">
+                    <button type="button" class="km-btn km-btn-primary flex-grow-1 km-btn-lg add-to-cart-btn" data-id="@Model.Id" @(Model.StockQuantity <= 0 ? "disabled" : "") style="padding: 1rem;">
+                        <i class="bi bi-bag-plus fs-5 me-2"></i> <span class="fs-5">Add to Cart</span>
+                    </button>
+                    <button type="button" class="km-btn km-btn-outline km-btn-lg add-to-wishlist-btn" data-id="@Model.Id" title="Add to Wishlist" style="width: 60px; padding:0; display:flex; align-items:center; justify-content:center;">
+                        <i class="bi bi-heart fs-4"></i>
+                    </button>
+                </div>
+                
+                <div class="d-flex align-items-center gap-4 mt-3 text-muted small fw-bold">
+                    <span><i class="bi bi-shield-check text-success fs-5 me-1"></i> Secure Checkout</span>
+                    <span><i class="bi bi-truck text-primary fs-5 me-1"></i> Free Shipping > $50</span>
+                    <span><i class="bi bi-arrow-counterclockwise text-info fs-5 me-1"></i> 30-Day Returns</span>
+                </div>
+            </div>
+            
+            <div class="mt-5 p-4 rounded-4 bg-light border">
+                <div class="d-flex align-items-center gap-3">
+                    <img src="/img/payment-methods.png" alt="Secure Payment" style="max-height: 30px;" onerror="this.style.display='none'" />
+                    <span class="text-muted small">Guaranteed safe & secure checkout</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Tabs -->
+    <div class="row mt-5" data-aos="fade-up">
+        <div class="col-12">
+            <ul class="nav nav-tabs km-tabs border-bottom-0 mb-4" id="productTabs" role="tablist" style="gap: 1rem;">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active rounded-pill px-4 py-2 border fw-bold" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc" type="button" role="tab" style="color:var(--km-text);">Description</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link rounded-pill px-4 py-2 border fw-bold" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" style="color:var(--km-text);">Reviews (@Model.Reviews.Count)</button>
+                </li>
+            </ul>
+            
+            <div class="tab-content bg-white p-4 p-md-5 rounded-4 shadow-sm border" id="productTabsContent">
+                <div class="tab-pane fade show active text-muted" id="desc" role="tabpanel" style="line-height:1.8;">
+                    <h3 class="mb-4" style="color:var(--km-primary);">Product Information</h3>
+                    <p>@Model.Description</p>
+                    <p>At KiddoMart, we ensure all our products are made from the highest quality materials, designed specifically for your baby's comfort and safety. This product complies with all international safety standards.</p>
+                </div>
+                
+                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                    <div class="row g-5">
+                        <div class="col-lg-7">
+                            <h3 class="mb-4" style="color:var(--km-primary);">Customer Reviews (@Model.Reviews.Count(r => r.IsApproved))</h3>
+                            
+                            @if (!Model.Reviews.Any(r => r.IsApproved))
+                            {
+                                <div class="text-center py-4">
+                                    <i class="bi bi-chat-square-text text-muted" style="font-size:3rem;"></i>
+                                    <h5 class="mt-3">No reviews yet</h5>
+                                    <p class="text-muted">Be the first to review this product!</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="d-flex flex-column gap-4">
+                                    @foreach (var review in Model.Reviews.Where(r => r.IsApproved))
+                                    {
+                                        <div class="d-flex gap-3">
+                                            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width:45px; height:45px; background:var(--km-primary-light); flex-shrink:0;">
+                                                @(string.IsNullOrWhiteSpace(review.UserFullName) ? "U" : review.UserFullName.Substring(0, 1).ToUpper())
+                                            </div>
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2 mb-1">
+                                                    <h6 class="mb-0 fw-bold">@(string.IsNullOrWhiteSpace(review.UserFullName) ? "Unknown User" : review.UserFullName)</h6>
+                                                    <span class="text-muted small">@review.CreatedAt.ToString("MMM dd, yyyy")</span>
+                                                </div>
+                                                <div class="mb-2" style="color:var(--km-gold);">
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        <i class="bi @(i <= review.Rating ? "bi-star-fill" : "bi-star")"></i>
+                                                    }
+                                                </div>
+                                                <p class="text-muted mb-0">"@review.Comment"</p>
+                                            </div>
+                                        </div>
+                                        <hr class="my-0 border-light">
+                                    }
+                                </div>
+                            }
+                        </div>
+                        
+                        <div class="col-lg-5">
+                            <div class="bg-light p-4 rounded-4 border">
+                                <h4 class="mb-4">Leave a Review</h4>
+                                @if (User.Identity!.IsAuthenticated)
+                                {
+                                    <form asp-action="AddReview" method="post">
+                                        <input type="hidden" name="productId" value="@Model.Id" />
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Your Rating</label>
+                                            <div class="km-star-rating d-flex gap-2 fs-4" style="color:var(--km-gold); cursor:pointer;">
+                                                <i class="bi bi-star rating-star" data-value="1"></i>
+                                                <i class="bi bi-star rating-star" data-value="2"></i>
+                                                <i class="bi bi-star rating-star" data-value="3"></i>
+                                                <i class="bi bi-star rating-star" data-value="4"></i>
+                                                <i class="bi bi-star rating-star" data-value="5"></i>
+                                                <input type="hidden" name="rating" id="selectedRating" value="5" required />
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Your Comment</label>
+                                            <textarea name="comment" class="form-control" rows="4" placeholder="Share your experience with this product..." required minlength="5"></textarea>
+                                        </div>
+                                        <button type="submit" class="km-btn km-btn-primary w-100">Submit Review</button>
+                                        <p class="small text-muted mt-2">Note: Reviews are moderated before being published.</p>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <div class="text-center py-3">
+                                        <p>Please log in to leave a review.</p>
+                                        <a asp-area="Identity" asp-page="/Account/Login" class="km-btn km-btn-outline btn-sm">Log In</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.km-tabs .nav-link { background: var(--km-bg); color: var(--km-text); transition: all 0.3s ease; }
+.km-tabs .nav-link:hover { border-color: var(--km-primary); color: var(--km-primary) !important; }
+.km-tabs .nav-link.active { background: var(--km-primary); color: #fff !important; border-color: var(--km-primary); }
+</style>
+
+@section Scripts {
+    <script>
+        function selectColor(element) {
+            // Remove selection border and scale from other swatches
+            document.querySelectorAll('.color-swatch-item').forEach(el => {
+                el.classList.remove('border-primary');
+                el.style.transform = 'none';
+            });
+            
+            // Add primary border to selected swatch
+            element.classList.add('border-primary');
+            element.style.transform = 'scale(1.1)';
+
+            // Update selected color name text
+            const colorName = element.dataset.colorName;
+            const nameEl = document.getElementById('selectedColorName');
+            if (nameEl) {
+                nameEl.textContent = colorName;
+                nameEl.className = 'text-primary fw-bold ms-1';
+            }
+
+            // Update stock badge
+            const stock = parseInt(element.dataset.stock);
+            const stockBadge = document.querySelector('.bg-success, .bg-danger');
+            if (stockBadge) {
+                if (stock > 0) {
+                    stockBadge.className = 'badge bg-success ms-auto rounded-pill px-3 py-2 fs-6';
+                    stockBadge.innerHTML = `<i class="bi bi-check-circle me-1"></i> In Stock (${stock})`;
+                    
+                    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+                    if (addToCartBtn) {
+                        addToCartBtn.removeAttribute('disabled');
+                    }
+                } else {
+                    stockBadge.className = 'badge bg-danger ms-auto rounded-pill px-3 py-2 fs-6';
+                    stockBadge.innerHTML = `<i class="bi bi-x-circle me-1"></i> Out of Stock`;
+                    
+                    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+                    if (addToCartBtn) {
+                        addToCartBtn.setAttribute('disabled', 'true');
+                    }
+                }
+            }
+
+            // Update main product image if image is provided
+            const imageUrl = element.dataset.image;
+            if (imageUrl) {
+                document.getElementById('mainProductImage').src = imageUrl;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-select first color variant if available
+            const firstSwatch = document.querySelector('.color-swatch-item');
+            if (firstSwatch) {
+                firstSwatch.click();
+            }
+
+            const stars = document.querySelectorAll('.rating-star');
+            const ratingInput = document.getElementById('selectedRating');
+
+            function updateStars(val) {
+                stars.forEach(s => {
+                    const sVal = parseInt(s.dataset.value);
+                    if (sVal <= val) {
+                        s.classList.replace('bi-star', 'bi-star-fill');
+                    } else {
+                        s.classList.replace('bi-star-fill', 'bi-star');
+                    }
+                });
+            }
+
+            stars.forEach(star => {
+                star.addEventListener('mouseover', function() {
+                    updateStars(parseInt(this.dataset.value));
+                });
+                star.addEventListener('click', function() {
+                    const val = parseInt(this.dataset.value);
+                    ratingInput.value = val;
+                    updateStars(val);
+                });
+            });
+
+            const ratingWrapper = document.querySelector('.km-star-rating');
+            if (ratingWrapper) {
+                ratingWrapper.addEventListener('mouseleave', function() {
+                    updateStars(parseInt(ratingInput.value));
+                });
+            }
+
+            if (ratingInput) {
+                updateStars(parseInt(ratingInput.value));
+            }
+        });
+    </script>
+}

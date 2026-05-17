@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="KiddoMart – Your trusted store for premium baby essentials." />
+    <title>@ViewData["Title"] – KiddoMart</title>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <!-- Bootstrap (for validation helpers) -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Auth Design System -->
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+</head>
+<body>
+
+<div class="auth-wrapper">
+
+    <!-- ═══ LEFT: Brand Panel ═══ -->
+    <div class="auth-brand" aria-hidden="true">
+        <div class="auth-brand-inner">
+            <img src="~/img/KiddoMart.png"
+                 alt="KiddoMart Logo"
+                 class="auth-brand-logo" />
+
+            <h1>Welcome to KiddoMart</h1>
+            <p>Your one-stop destination for premium baby essentials, curated with love for every little one.</p>
+
+            <div class="auth-trust-badges">
+                <span class="auth-trust-badge">
+                    <i class="bi bi-shield-fill-check"></i> Secure & Safe
+                </span>
+                <span class="auth-trust-badge">
+                    <i class="bi bi-truck"></i> Fast Delivery
+                </span>
+                <span class="auth-trust-badge">
+                    <i class="bi bi-star-fill"></i> 5-Star Rated
+                </span>
+            </div>
+        </div>
+
+        <div class="auth-decorative-dots">
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!-- ═══ RIGHT: Form Panel ═══ -->
+    <div class="auth-form-panel" role="main">
+        <div class="auth-form-card">
+
+            <!-- Mobile-only logo -->
+            <div class="auth-mobile-logo">
+                <img src="~/img/KiddoMart.png" alt="KiddoMart" />
+            </div>
+
+            @RenderBody()
+
+        </div>
+    </div>
+
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+
+<script>
+    // Password visibility toggle
+    document.querySelectorAll('.km-pwd-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const input = btn.previousElementSibling;
+            const isText = input.type === 'text';
+            input.type = isText ? 'password' : 'text';
+            btn.innerHTML = isText
+                ? '<i class="bi bi-eye"></i>'
+                : '<i class="bi bi-eye-slash"></i>';
+        });
+    });
+
+    // Password strength meter
+    const pwdInputs = document.querySelectorAll('input[id$="Password"]:not([id*="Confirm"])');
+    pwdInputs.forEach(input => {
+        const meter = input.closest('.km-field')?.querySelector('.km-pwd-strength');
+        if (!meter) return;
+        input.addEventListener('input', () => {
+            const v = input.value;
+            const bars = meter.querySelectorAll('.km-pwd-strength-bar');
+            let score = 0;
+            if (v.length >= 8) score++;
+            if (/[A-Z]/.test(v)) score++;
+            if (/[0-9]/.test(v)) score++;
+            if (/[^A-Za-z0-9]/.test(v)) score++;
+            bars.forEach((b, i) => {
+                b.className = 'km-pwd-strength-bar';
+                if (i < score) {
+                    b.classList.add(score <= 1 ? 'weak' : score <= 2 ? 'medium' : 'strong');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

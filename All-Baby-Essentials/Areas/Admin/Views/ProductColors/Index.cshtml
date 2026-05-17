@@ -1,0 +1,251 @@
+@model IEnumerable<All_Baby_Essentials.Areas.Admin.ViewModels.ProductColorVM>
+@{
+    ViewData["Title"] = "Product Colors";
+    var product = ViewBag.Product as All_Baby_Essentials.Models.Product;
+}
+
+@section Title {
+    Products
+}
+
+@section SubTitle {
+    Colors & Stock for @(product?.Name)
+}
+
+@section ActionBtn {
+    <a asp-controller="Products" asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Products
+    </a>
+}
+
+<div class="row p-3">
+    <!-- Left Column: Add Color Variant -->
+    <div class="col-md-4">
+        <div class="card card-primary card-outline shadow-sm border rounded">
+            <div class="card-header bg-light">
+                <h5 class="card-title m-0 fw-bold"><i class="fas fa-plus-circle me-1 text-primary"></i> Add Color Variant</h5>
+            </div>
+            <form asp-controller="ProductColors" asp-action="Create" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="productId" value="@product?.Id" />
+
+                <div class="card-body">
+                    <!-- Standard Colors Dropdown -->
+                    <div class="form-group mb-3" id="standardColorGroup">
+                        <label class="form-label fw-bold">Select Color</label>
+                        <select name="colorId" asp-items="ViewBag.ColorsList" class="form-control">
+                            <option value="">-- Choose Standard Color --</option>
+                        </select>
+                        <small class="text-muted">Select an existing color from the standard list.</small>
+                    </div>
+
+                    <!-- Toggle Custom Color -->
+                    <div class="form-group form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="toggleCustomColor" onchange="toggleCustomColorInputs(this)" />
+                        <label class="form-check-label fw-bold cursor-pointer" for="toggleCustomColor">Or create a new color globally</label>
+                    </div>
+
+                    <!-- Custom Color Fields (hidden by default) -->
+                    <div id="customColorFields" style="display: none;" class="p-3 bg-light border rounded mb-3">
+                        <div class="form-group mb-2">
+                            <label class="form-label fw-bold text-dark">Color Name</label>
+                            <input type="text" name="newColorName" class="form-control" placeholder="e.g. Lavender" />
+                        </div>
+                        <div class="form-group mb-2">
+                            <label class="form-label fw-bold text-dark">Color Hex Code</label>
+                            <input type="color" name="newColorHexCode" class="form-control form-control-color w-100" value="#FF0000" style="height:38px;" />
+                            <small class="text-muted">Pick color or specify hex code.</small>
+                        </div>
+                    </div>
+
+                    <!-- Stock Quantity -->
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Stock Quantity</label>
+                        <input type="number" name="stockQuantity" class="form-control" placeholder="0" min="0" required />
+                    </div>
+
+                    <!-- Color Specific Image -->
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Variant Image (Optional)</label>
+                        <input type="file" name="imageFile" class="form-control" accept="image/*" onchange="previewImage(event)" />
+                        <small class="text-muted">Specific image to display when this color is selected.</small>
+                    </div>
+
+                    <!-- Preview Thumbnail -->
+                    <div class="form-group mb-2 text-center" id="variantPreviewContainer" style="display:none;">
+                        <img id="variantPreview" src="#" alt="Preview" class="img-thumbnail" style="max-height: 120px; object-fit: contain;" />
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white border-top">
+                    <button type="submit" class="btn btn-primary w-100"><i class="fas fa-plus"></i> Add Color Variant</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Right Column: Current Variants Table -->
+    <div class="col-md-8">
+        <div class="card card-secondary shadow-sm border rounded">
+            <div class="card-header bg-light">
+                <h5 class="card-title m-0 fw-bold"><i class="fas fa-palette me-1 text-info"></i> Current Color Variants</h5>
+            </div>
+            <div class="card-body p-0">
+                @if (!Model.Any())
+                {
+                    <div class="p-4 text-center">
+                        <i class="fas fa-exclamation-triangle text-warning fa-2x mb-3"></i>
+                        <h5>No color variants found for this product.</h5>
+                        <p class="text-muted">Please use the form on the left to add colors and inventory.</p>
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-hover table-bordered table-striped m-0 align-middle">
+                        <thead>
+                            <tr>
+                                <th style="width: 100px">Swatch</th>
+                                <th>Color Name</th>
+                                <th>Color HEX</th>
+                                <th style="width: 120px">Stock</th>
+                                <th style="width: 120px">Image</th>
+                                <th style="width: 150px">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        <div class="rounded-circle border border-2 shadow-sm" style="width: 32px; height: 32px; background-color: @item.ColorHexCode; display: inline-block;"></div>
+                                    </td>
+                                    <td><strong>@item.ColorName</strong></td>
+                                    <td><code>@item.ColorHexCode</code></td>
+                                    <td>
+                                        @if (item.StockQuantity == 0)
+                                        {
+                                            <span class="badge badge-danger">Out of Stock</span>
+                                        }
+                                        else if (item.StockQuantity < 10)
+                                        {
+                                            <span class="badge badge-warning">@item.StockQuantity</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-success">@item.StockQuantity</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                        {
+                                            <img src="/img/@item.ImageUrl" alt="Variant Image" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;" />
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">None</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger js-delete-variant" data-id="@item.Id">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+            <div class="card-footer bg-light border-top">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted small">Total Variant Types: <strong>@Model.Count()</strong></span>
+                    <span class="text-muted small">Sum of Stock: <strong>@(product?.StockQuantity ?? 0)</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function toggleCustomColorInputs(checkbox) {
+            const dropdownGroup = document.getElementById('standardColorGroup');
+            const customFields = document.getElementById('customColorFields');
+            const dropdown = dropdownGroup.querySelector('select');
+            const customInputs = customFields.querySelectorAll('input');
+
+            if (checkbox.checked) {
+                dropdownGroup.style.display = 'none';
+                dropdown.value = '';
+                dropdown.removeAttribute('required');
+                customFields.style.display = 'block';
+                customInputs.forEach(i => i.setAttribute('required', 'true'));
+            } else {
+                dropdownGroup.style.display = 'block';
+                dropdown.setAttribute('required', 'true');
+                customFields.style.display = 'none';
+                customInputs.forEach(i => {
+                    i.removeAttribute('required');
+                    i.value = i.type === 'color' ? '#FF0000' : '';
+                });
+            }
+        }
+
+        function previewImage(event) {
+            const input = event.target;
+            const previewContainer = document.getElementById('variantPreviewContainer');
+            const previewImg = document.getElementById('variantPreview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                previewImg.src = '#';
+                previewContainer.style.display = 'none';
+            }
+        }
+
+        document.querySelectorAll(".js-delete-variant").forEach((btn) => {
+            btn.addEventListener("click", async (event) => {
+                event.preventDefault();
+
+                const result = await Swal.fire({
+                    title: "Are you sure?",
+                    text: "This will remove the color variant and subtract its stock!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                });
+
+                if (result.isConfirmed) {
+                    const id = btn.dataset.id;
+                    const response = await fetch(
+                        '@Url.Action("Delete", "ProductColors", new { area = "Admin" })/' + id,
+                        { method: "POST" }
+                    );
+
+                    if (response.ok) {
+                        const Toast = Swal.mixin({
+                            toast: true, position: "top-end",
+                            showConfirmButton: false, timer: 3000, timerProgressBar: true
+                        });
+                        Toast.fire({ icon: "success", title: "Variant deleted successfully" }).then(() => {
+                            window.location.reload();
+                        });
+                    } else {
+                        Swal.fire({ icon: "error", title: "Error", text: "Something went wrong." });
+                    }
+                }
+            });
+        });
+    </script>
+}

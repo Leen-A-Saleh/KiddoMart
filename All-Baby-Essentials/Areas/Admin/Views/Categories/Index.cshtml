@@ -1,0 +1,116 @@
+@model IEnumerable<All_Baby_Essentials.Areas.Admin.ViewModels.CategoryVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section Title{
+    Categories
+}
+
+@section SubTitle {
+            All of Categories
+}
+@section ActionBtn {
+    <a asp-controller="Categories" asp-action="Create" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Category
+    </a>
+}
+
+@if (!Model.Any())
+{
+    <div class="card-body">
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+            No categories found. Please add a new category.
+        </div>
+    </div>
+}
+
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Name</th>
+                    <th style="width: 350px">More Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>
+                            <a asp-controller="Categories" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                            <a asp-controller="Categories" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a href="#" class="btn btn-sm btn-danger js-deleted" data-id="@item.Id">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+@section Scripts {
+    <script>
+
+            document.querySelectorAll(".js-deleted").forEach((e) => {
+            e.addEventListener("click", async (event) => {
+                event.preventDefault();
+
+                const result = await Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                });
+
+                if (result.isConfirmed) {
+                    const id = e.dataset.id;
+
+                           const response = await fetch(
+            '@Url.Action("Delete", "Categories", new { area = "Admin" })/' + id,
+            {
+                method: "POST"
+            }
+        );
+
+                    if (response.ok) {
+                        e.closest("tr").remove();
+
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true
+                        });
+
+                        Toast.fire({
+                            icon: "success",
+                            title: "Category deleted successfully"
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Something went wrong."
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+    }

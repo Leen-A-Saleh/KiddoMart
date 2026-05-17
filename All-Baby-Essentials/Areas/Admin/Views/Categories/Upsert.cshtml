@@ -1,0 +1,72 @@
+@model All_Baby_Essentials.Areas.Admin.ViewModels.CategoryVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section Title {
+           Categories
+}
+
+@section SubTitle {
+    @(Model?.Id == null ? "Create new category" : "Edit category")
+}
+
+
+<!-- form start -->
+<form class="form-horizontal" asp-area="Admin" asp-controller="Categories"enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+
+
+    <div class="card-body">
+        <div class="form-group row">
+
+            <label asp-for="Name" class="col-12 col-form-label"></label>
+            <div class="col-12">
+                <input type="text" asp-for="Name" class="form-control" placeholder="Category Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <label asp-for="Description" class="col-12 col-form-label"></label>
+            <div class="col-12">
+                <input type="text" asp-for="Description" class="form-control" placeholder="Category Description" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <label class="col-12 col-form-label mt-3">Category Image</label>
+            <div class="col-12">
+                <input type="file" name="ImageFile" class="form-control" accept="image/*" onchange="previewImage(event)" />
+            </div>
+
+            <div class="col-12 mt-3">
+                <img id="imagePreview" src="@(string.IsNullOrEmpty(Model?.ImageUrl) ? "/img/default.png" : "/img/" + Model.ImageUrl)"
+                     alt="Category Image" class="img-thumbnail" style="max-width: 200px;" />
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary">
+            @(Model?.Id == null ? "Add" : "Update")
+
+        </button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('imagePreview');
+
+            if (input.files && input.files[0]) {
+                preview.src = URL.createObjectURL(input.files[0]);
+            }
+        }
+    </script>
+}

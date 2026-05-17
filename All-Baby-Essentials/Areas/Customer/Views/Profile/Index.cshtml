@@ -1,0 +1,191 @@
+@model All_Baby_Essentials.Areas.Customer.ViewModels.ProfileVM
+
+<div id="page-content">
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs-wrapper">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a asp-area="Customer" asp-controller="Home" asp-action="Index">
+                    Home
+                </a>
+                <span>|</span>
+                <span>My Account</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="page-title">
+            <h1>My Account</h1>
+        </div>
+
+        <!-- Top Info -->
+        <div class="dashboard-upper-info mb-5">
+            <div class="row align-items-center">
+
+                <div class="col-lg-4">
+                    <div class="d-single-info">
+                        <p class="user-name">
+                            Hello
+                            <span class="font-weight-600">
+                                @Model.FullName
+                            </span>
+                        </p>
+
+                        <p>
+                            @Model.Email
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="d-single-info">
+                        <p>Need Assistance?</p>
+                        <p>support@allbabyessentials.com</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 text-lg-end">
+                    <div class="d-single-info">
+                        <a asp-area="Customer"
+                           asp-controller="Cart"
+                           asp-action="Index"
+                           class="view-cart">
+                            <i class="icon anm anm-bag-l"></i>
+                            View Cart
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mb-5">
+
+            <!-- Sidebar -->
+            <div class="col-lg-3 mb-4">
+
+                <ul class="nav flex-column dashboard-list">
+
+                    <li>
+                        <a class="nav-link active"
+                           data-bs-toggle="tab"
+                           href="#account-details">
+                            Account Details
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link"
+                           asp-area="Customer"
+                           asp-controller="Wishlist"
+                           asp-action="Index">
+                            Wishlist
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link"
+                           asp-area="Customer"
+                           asp-controller="Cart"
+                           asp-action="Index">
+                            Cart
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link"
+                           asp-area="Identity"
+                           asp-page="/Account/Logout">
+                            Logout
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- Content -->
+            <div class="col-lg-9">
+
+                <div class="tab-content dashboard-content p-4 border rounded">
+
+                    <div id="account-details"
+                         class="tab-pane fade show active">
+
+                        <h3 class="mb-4">Account Details</h3>
+
+                        @if (ViewBag.Success != null)
+                        {
+                            <div class="alert alert-success">
+                                @ViewBag.Success
+                            </div>
+                        }
+
+                        <form method="post">
+
+                            <div class="row">
+
+                                <div class="form-group col-md-6 mb-3">
+                                    <label>Full Name</label>
+
+                                    <input asp-for="FullName"
+                                           class="form-control" />
+
+                                    <span asp-validation-for="FullName"
+                                          class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-md-6 mb-3">
+                                    <label>Email</label>
+
+                                    <input asp-for="Email"
+                                           class="form-control"
+                                           readonly />
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="form-group col-md-6 mb-3">
+                                    <label>Phone Number</label>
+
+                                    <input asp-for="PhoneNumber"
+                                           class="form-control" />
+                                </div>
+
+                                <div class="form-group col-md-6 mb-3">
+                                    <label>Date Of Birth</label>
+
+                                    <input asp-for="DateOfBirth"
+                                           type="date"
+                                           class="form-control" />
+                                </div>
+
+                            </div>
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Save Changes
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

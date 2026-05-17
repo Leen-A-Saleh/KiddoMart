@@ -1,0 +1,39 @@
+@model All_Baby_Essentials.Models.Order
+
+<div class="container mt-4">
+
+    <h2>Order #@Model.Id</h2>
+
+    <p><strong>Status:</strong> @Model.Status</p>
+    <p><strong>Total:</strong> $@Model.TotalAmount</p>
+
+    <hr />
+
+    <h4>Items</h4>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>$@item.UnitPrice</td>
+                    <td>@item.Quantity</td>
+                    <td>$@(item.UnitPrice* item.Quantity)</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>

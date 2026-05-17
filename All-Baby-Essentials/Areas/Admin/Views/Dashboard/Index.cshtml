@@ -1,0 +1,209 @@
+@model All_Baby_Essentials.Areas.Admin.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+@section Title { Dashboard }
+@section SubTitle { Overview & Statistics }
+
+<div class="card-body">
+    <!-- Top Summary Cards -->
+    <div class="row g-3">
+        <!-- Total Users -->
+        <div class="col-lg-3 col-sm-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>@(Model?.TotalUsers ?? 0)</h3>
+                    <p>Total Users</p>
+                </div>
+                <div class="icon"><i class="fas fa-users"></i></div>
+                <a asp-area="Admin" asp-controller="ApplicationUser" asp-action="Index" class="small-box-footer">
+                    More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Total Products -->
+        <div class="col-lg-3 col-sm-6">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>@(Model?.TotalProducts ?? 0)</h3>
+                    <p>Total Products</p>
+                </div>
+                <div class="icon"><i class="fas fa-box"></i></div>
+                <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="small-box-footer">
+                    More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Total Categories -->
+        <div class="col-lg-3 col-sm-6">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>@(Model?.TotalCategories ?? 0)</h3>
+                    <p>Total Categories</p>
+                </div>
+                <div class="icon"><i class="fas fa-tags"></i></div>
+                <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="small-box-footer">
+                    More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Total Orders -->
+        <div class="col-lg-3 col-sm-6">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>@(Model?.TotalOrders ?? 0)</h3>
+                    <p>Total Orders</p>
+                </div>
+                <div class="icon"><i class="fas fa-shopping-cart"></i></div>
+                <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="small-box-footer">
+                    More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics and Chart -->
+    <div class="row mt-4">
+        <!-- Best Seller -->
+        <div class="col-lg-4">
+            <div class="card h-100">
+                <div class="card-header border-0 bg-white">
+                    <h6 class="card-title mb-0 fw-bold"><i class="fas fa-trophy text-warning me-2"></i>Most Ordered Product</h6>
+                </div>
+                <div class="card-body text-center d-flex flex-column justify-content-center py-4">
+                    <div class="display-6 fw-bold text-primary mb-2">@Model.MostOrderedProductCount</div>
+                    <div class="h5 mb-0 text-dark px-3">@Model.MostOrderedProduct</div>
+                    <p class="text-muted small mt-2">Total Units Sold</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Chart -->
+        <div class="col-lg-8">
+            <div class="card h-100">
+                <div class="card-header border-0 bg-white d-flex justify-content-between align-items-center">
+                    <h6 class="card-title mb-0 fw-bold"><i class="fas fa-chart-line text-primary me-2"></i>Order Trends (Last 30 Days)</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="ordersChart" style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header border-transparent d-flex justify-content-between align-items-center bg-white">
+                    <h6 class="card-title mb-0 fw-bold">Latest Orders</h6>
+                    <a asp-area="Admin" asp-controller="Orders" asp-action="Index"
+                       class="btn btn-sm btn-outline-secondary">View All</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover m-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model?.RecentOrders != null && Model.RecentOrders.Any())
+                                {
+                                    @foreach (var order in Model.RecentOrders)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-area="Admin" asp-controller="Orders"
+                                                   asp-action="Details" asp-route-id="@order.Id"
+                                                   class="fw-semibold">#@order.Id</a>
+                                            </td>
+                                            <td>@order.FullName</td>
+                                            <td>
+                                                @{
+                                                    var sc = order.Status switch
+                                                    {
+                                                        All_Baby_Essentials.Models.OrderStatus.Completed  => "badge bg-success",
+                                                        All_Baby_Essentials.Models.OrderStatus.Processing => "badge bg-warning text-dark",
+                                                        All_Baby_Essentials.Models.OrderStatus.Cancelled  => "badge bg-danger",
+                                                        _                                                 => "badge bg-secondary"
+                                                    };
+                                                }
+                                                <span class="@sc">@order.Status</span>
+                                            </td>
+                                            <td class="text-muted">@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                                            <td class="fw-semibold">$@order.TotalAmount.ToString("0.00")</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted py-4">
+                                            No orders yet.
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('ordersChart').getContext('2d');
+            
+            const labels = @Html.Raw(Json.Serialize(Model.OrdersPerDay.Keys));
+            const data = @Html.Raw(Json.Serialize(Model.OrdersPerDay.Values));
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Number of Orders',
+                        data: data,
+                        borderColor: '#1a1a2e',
+                        backgroundColor: 'rgba(26, 26, 46, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#1a1a2e'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1, precision: 0 }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

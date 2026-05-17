@@ -1,0 +1,42 @@
+@model List<All_Baby_Essentials.Areas.Customer.ViewModels.WishlistItemViewModel>
+
+@if (Model != null && Model.Any())
+{
+    <div class="d-flex flex-column h-100">
+        <div class="flex-grow-1 overflow-auto" style="padding:1rem;">
+            @foreach (var item in Model)
+            {
+                var imgSrc = string.IsNullOrEmpty(item.ImageUrl) ? "/img/no-image.png" : $"/img/{item.ImageUrl}";
+                <div class="km-cart-item mb-3">
+                    <img src="@imgSrc" alt="@item.ProductName" class="km-cart-item-img" />
+                    <div class="km-cart-item-details">
+                        <div class="km-cart-item-title">@item.ProductName</div>
+                        <div class="km-cart-item-price">$@item.Price.ToString("0.00")</div>
+                        <div class="mt-2">
+                            <button type="button" class="km-btn km-btn-sm km-btn-primary add-to-cart-from-wishlist w-100" data-id="@item.ProductId">
+                                Move to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="km-cart-item-remove remove-wishlist-item" data-id="@item.ProductId" aria-label="Remove item">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
+            }
+        </div>
+        <div class="km-offcanvas-footer">
+            <button type="button" class="km-btn km-btn-ghost km-btn-block" data-bs-dismiss="offcanvas">Continue Shopping</button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <div class="mb-4 text-muted" style="font-size: 3rem;">
+            <i class="bi bi-heart"></i>
+        </div>
+        <h5 class="fw-bold">Your wishlist is empty</h5>
+        <p class="text-muted small mb-4">Save your favorite items here to buy them later.</p>
+        <button type="button" class="km-btn km-btn-primary" data-bs-dismiss="offcanvas">Explore Products</button>
+    </div>
+}

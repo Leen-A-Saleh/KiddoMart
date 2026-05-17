@@ -1,0 +1,77 @@
+@model IEnumerable<All_Baby_Essentials.Models.Order>
+
+@{
+    ViewData["Title"] = "Orders Management";
+}
+
+@section Title { Orders }
+@section SubTitle { Management }
+
+@section ActionBtn {
+    <h5 class="mb-0 fw-semibold">Orders Management</h5>
+}
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-hover table-sm align-middle mb-0" id="ordersTable">
+            <thead class="table-light">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <span class="fw-semibold text-sm">#@item.Id</span>
+                        </td>
+                        <td>
+                            <span class="text-sm">@item.FullName</span>
+                        </td>
+                        <td>
+                            <span class="text-sm text-muted">@item.OrderDate.ToString("MMM dd, yyyy")</span>
+                        </td>
+                        <td>
+                            <span class="text-sm fw-semibold">$@item.TotalAmount.ToString("0.00")</span>
+                        </td>
+                        <td>
+                            @{
+                                var statusClass = item.Status switch
+                                {
+                                    All_Baby_Essentials.Models.OrderStatus.Completed  => "badge bg-success",
+                                    All_Baby_Essentials.Models.OrderStatus.Processing => "badge bg-warning text-dark",
+                                    All_Baby_Essentials.Models.OrderStatus.Cancelled  => "badge bg-danger",
+                                    _                                                 => "badge bg-secondary"
+                                };
+                            }
+                            <span class="@statusClass">@item.Status</span>
+                        </td>
+                        <td class="text-center">
+                            <a asp-area="Admin"
+                               asp-controller="Orders"
+                               asp-action="Details"
+                               asp-route-id="@item.Id"
+                               class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye me-1"></i> View
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (!Model.Any())
+        {
+            <div class="text-center text-muted py-5">
+                <i class="fas fa-shopping-bag fa-3x mb-3 opacity-25"></i>
+                <p>No orders found.</p>
+            </div>
+        }
+    </div>
+</div>

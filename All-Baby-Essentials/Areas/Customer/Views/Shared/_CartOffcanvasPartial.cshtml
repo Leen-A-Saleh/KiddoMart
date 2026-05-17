@@ -1,0 +1,49 @@
+@model All_Baby_Essentials.Areas.Customer.ViewModels.CartViewModel
+
+@if (Model.Items != null && Model.Items.Any())
+{
+    <div class="d-flex flex-column h-100">
+        <div class="flex-grow-1 overflow-auto" style="padding:1rem;">
+            @foreach (var item in Model.Items)
+            {
+                var imgSrc = string.IsNullOrEmpty(item.ImageUrl) ? "/img/no-image.png" : $"/img/{item.ImageUrl}";
+                <div class="km-cart-item mb-3">
+                    <img src="@imgSrc" alt="@item.ProductName" class="km-cart-item-img" />
+                    <div class="km-cart-item-details">
+                        <div class="km-cart-item-title">@item.ProductName</div>
+                        <div class="km-cart-item-price">$@item.Price.ToString("0.00")</div>
+                        <div class="km-qty-control mt-2">
+                            <button type="button" class="km-qty-btn decrease-qty" data-id="@item.ProductId"><i class="bi bi-dash"></i></button>
+                            <input type="number" class="km-qty-input update-qty" data-id="@item.ProductId" value="@item.Quantity" min="1" />
+                            <button type="button" class="km-qty-btn increase-qty" data-id="@item.ProductId"><i class="bi bi-plus"></i></button>
+                        </div>
+                    </div>
+                    <button type="button" class="km-cart-item-remove remove-cart-item" data-id="@item.ProductId" aria-label="Remove item">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
+            }
+        </div>
+        <div class="km-offcanvas-footer">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted fw-bold">Subtotal</span>
+                <span class="fs-5 fw-bolder" style="color:var(--km-primary);">$@Model.TotalPrice.ToString("0.00")</span>
+            </div>
+            <a asp-area="Customer" asp-controller="Checkout" asp-action="Index" class="km-btn km-btn-primary km-btn-block km-btn-lg">
+                Proceed to Checkout
+            </a>
+            <button type="button" class="km-btn km-btn-ghost km-btn-block mt-2" data-bs-dismiss="offcanvas">Continue Shopping</button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <div class="mb-4 text-muted" style="font-size: 3rem;">
+            <i class="bi bi-cart-x"></i>
+        </div>
+        <h5 class="fw-bold">Your cart is empty</h5>
+        <p class="text-muted small mb-4">Looks like you haven't added any items to the cart yet.</p>
+        <button type="button" class="km-btn km-btn-primary" data-bs-dismiss="offcanvas">Start Shopping</button>
+    </div>
+}
