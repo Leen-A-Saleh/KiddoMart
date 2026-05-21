@@ -1,66 +1,146 @@
-@model All_Baby_Essentials.Models.Order
+﻿@model All_Baby_Essentials.Models.Order
 
 @{
     ViewData["Title"] = "Order Details";
 }
 
-<div class="container-fluid py-4">
+<div class="category-dashboard-container mt-4" style="max-width: 1100px; margin: 0 auto;">
+    
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 px-3">
+        <div>
+            <h2 class="mb-1" style="font-weight: 800; color: #2b3445; letter-spacing: -0.5px;">
+                <i class="fas fa-shopping-bag text-primary mr-2" style="background: linear-gradient(135deg, #2af598 0%, #009efd 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i> 
+                Order #@Model.Id Details
+            </h2>
+            <p class="text-muted mb-0" style="font-size: 0.95rem;">Track, view billing details, and update the status of this order.</p>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary" style="border-radius: 10px;">
+            <i class="fas fa-arrow-left mr-1"></i> Back to Orders
+        </a>
+    </div>
+
     <div class="row">
-        <!-- Order Info -->
-        <div class="col-lg-8">
-            <div class="card mb-4">
-                <div class="card-header pb-0">
-                    <h6>Order #@Model.Id Details</h6>
+        <!-- Left Column: Order Items & Shipping details -->
+        <div class="col-lg-8 mb-4">
+            <!-- Customer & Shipping Summary Card -->
+            <div class="card border-0 km-card-glass shadow-lg mb-4">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                    <h5 class="font-weight-bold text-dark mb-0"><i class="fas fa-shipping-fast text-info mr-2"></i> Shipping & Billing Info</h5>
                 </div>
                 <div class="card-body">
-                    <p><strong>Customer:</strong> @Model.FullName</p>
-                    <p><strong>Email:</strong> @Model.User?.Email</p>
-                    <p><strong>Phone:</strong> @Model.PhoneNumber</p>
-                    <p><strong>Date:</strong> @Model.OrderDate.ToString("g")</p>
-                    <p><strong>Address:</strong> @Model.ShippingAddress</p>
-                    <p><strong>Total:</strong> $@Model.TotalAmount.ToString("0.00")</p>
-                    <p><strong>Payment Status:</strong> @Model.PaymentStatus</p>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <small class="text-muted text-uppercase font-weight-bold d-block mb-1" style="letter-spacing: 0.5px;">Customer Name</small>
+                            <h6 class="mb-0 font-weight-bold text-dark">@Model.FullName</h6>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <small class="text-muted text-uppercase font-weight-bold d-block mb-1" style="letter-spacing: 0.5px;">Email Address</small>
+                            <h6 class="mb-0 font-weight-bold text-dark">@(Model.User?.Email ?? "N/A")</h6>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <small class="text-muted text-uppercase font-weight-bold d-block mb-1" style="letter-spacing: 0.5px;">Contact Phone</small>
+                            <h6 class="mb-0 font-weight-bold text-dark"><i class="fas fa-phone mr-1 text-muted"></i> @Model.PhoneNumber</h6>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <small class="text-muted text-uppercase font-weight-bold d-block mb-1" style="letter-spacing: 0.5px;">Order Date</small>
+                            <h6 class="mb-0 font-weight-bold text-dark"><i class="far fa-calendar-alt mr-1 text-muted"></i> @Model.OrderDate.ToString("MMM dd, yyyy - HH:mm")</h6>
+                        </div>
+                        <div class="col-12">
+                            <small class="text-muted text-uppercase font-weight-bold d-block mb-1" style="letter-spacing: 0.5px;">Shipping Address</small>
+                            <h6 class="mb-0 font-weight-bold text-dark"><i class="fas fa-map-marker-alt mr-1 text-danger"></i> @Model.ShippingAddress</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <h6 class="mt-4">Items</h6>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.OrderItems)
-                            {
+            <!-- Ordered Items Table Card -->
+            <div class="card border-0 km-card-glass shadow-lg">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                    <h5 class="font-weight-bold text-dark mb-0"><i class="fas fa-box text-primary mr-2"></i> Ordered Items</h5>
+                </div>
+                <div class="card-body p-0 mt-3">
+                    <div class="table-responsive">
+                        <table class="table km-vibrant-table mb-0">
+                            <thead>
                                 <tr>
-                                    <td>@item.Product.Name</td>
-                                    <td>@item.Quantity</td>
-                                    <td>$@item.UnitPrice.ToString("0.00")</td>
-                                    <td>$@((item.Quantity * item.UnitPrice).ToString("0.00"))</td>
+                                    <th>Product</th>
+                                    <th class="text-center" style="width: 100px;">Qty</th>
+                                    <th>Unit Price</th>
+                                    <th class="text-right">Subtotal</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderItems)
+                                {
+                                    <tr class="km-table-row">
+                                        <td class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                                <div class="km-avatar-initial mr-3" style="width: 35px; height: 35px; font-size: 1rem; background: linear-gradient(135deg, #2af598 0%, #009efd 100%);">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                </div>
+                                                <h6 class="mb-0 font-weight-bold text-dark">@item.Product.Name</h6>
+                                            </div>
+                                        </td>
+                                        <td class="text-center align-middle font-weight-bold">@item.Quantity</td>
+                                        <td class="align-middle text-muted">$@item.UnitPrice.ToString("0.00")</td>
+                                        <td class="align-middle text-right font-weight-bold text-dark">$@((item.Quantity * item.UnitPrice).ToString("0.00"))</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-top-0 d-flex justify-content-between align-items-center" style="border-radius: 0 0 20px 20px;">
+                    <span class="text-muted font-weight-bold">Total Items Ordered: @Model.OrderItems.Sum(o => o.Quantity)</span>
+                    <h5 class="mb-0 font-weight-bold text-primary">Total: $@Model.TotalAmount.ToString("0.00")</h5>
                 </div>
             </div>
         </div>
-        
-        <!-- Update Status -->
+
+        <!-- Right Column: Status & Payment Control -->
         <div class="col-lg-4">
-            <div class="card mb-4">
-                <div class="card-header pb-0">
-                    <h6>Update Status</h6>
+            <!-- Payment & Process Card -->
+            <div class="card border-0 km-card-glass shadow-lg mb-4">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                    <h5 class="font-weight-bold text-dark mb-0"><i class="fas fa-cogs text-warning mr-2"></i> Action Center</h5>
                 </div>
                 <div class="card-body">
+                    <!-- Status Indicator -->
+                    <div class="mb-4">
+                        <small class="text-muted text-uppercase font-weight-bold d-block mb-1" style="letter-spacing: 0.5px;">Current Status</small>
+                        @{
+                            var statusClass = Model.Status switch
+                            {
+                                All_Baby_Essentials.Models.OrderStatus.Completed  => "badge badge-success",
+                                All_Baby_Essentials.Models.OrderStatus.Processing => "badge badge-warning",
+                                All_Baby_Essentials.Models.OrderStatus.Cancelled  => "badge badge-danger",
+                                _                                                 => "badge badge-secondary"
+                            };
+                        }
+                        <span class="@statusClass text-uppercase font-weight-bold" style="padding: 0.5rem 0.8rem; border-radius: 8px; font-size: 0.9rem;">@Model.Status</span>
+                    </div>
+
+                    <!-- Payment Status -->
+                    <div class="mb-4">
+                        <small class="text-muted text-uppercase font-weight-bold d-block mb-1" style="letter-spacing: 0.5px;">Payment Status</small>
+                        <h6 class="font-weight-bold text-dark">
+                            <i class="fas fa-credit-card mr-2 text-muted"></i> @Model.PaymentStatus
+                        </h6>
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <!-- Update Status Form -->
                     <form asp-action="UpdateStatus" method="post">
                         <input type="hidden" name="id" value="@Model.Id" />
-                        <div class="mb-3">
-                            <label class="form-label">Order Status</label>
-                            <select name="status" class="form-select" asp-for="Status" asp-items="Html.GetEnumSelectList<All_Baby_Essentials.Models.OrderStatus>()"></select>
+                        <div class="form-group mb-4">
+                            <label class="form-label font-weight-bold text-dark">Update Order Status</label>
+                            <select name="status" class="form-control km-select" asp-for="Status" asp-items="Html.GetEnumSelectList<All_Baby_Essentials.Models.OrderStatus>()" style="box-shadow:none; border-radius: 10px;"></select>
                         </div>
-                        <button type="submit" class="btn bg-gradient-primary w-100">Update Status</button>
+                        <button type="submit" class="btn km-btn-gradient w-100 py-2" style="background: linear-gradient(135deg, #2af598 0%, #009efd 100%); box-shadow: 0 6px 15px rgba(42, 245, 152, 0.3);">
+                            <i class="fas fa-sync-alt mr-2"></i> Update Order Status
+                        </button>
                     </form>
                 </div>
             </div>

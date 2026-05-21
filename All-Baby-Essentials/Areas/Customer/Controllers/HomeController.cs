@@ -56,6 +56,21 @@ namespace All_Baby_Essentials.Areas.Customer.Controllers
                 Testimonials = testimonials
             };
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var wishlistProductIds = await _context.WishlistItems
+                    .Where(w => w.UserId == userId)
+                    .Select(w => w.ProductId)
+                    .ToListAsync();
+
+                foreach (var p in vm.LatestProducts)
+                    p.IsInWishlist = wishlistProductIds.Contains(p.Id);
+                
+                foreach (var p in vm.PopularProducts)
+                    p.IsInWishlist = wishlistProductIds.Contains(p.Id);
+            }
+
             return View(vm);
         }
 

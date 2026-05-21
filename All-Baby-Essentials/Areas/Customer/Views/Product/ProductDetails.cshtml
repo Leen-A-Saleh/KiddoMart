@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = Model.Name;
     var mainImage = Model.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? Model.Images.FirstOrDefault()?.ImageUrl;
-    var mainImgSrc = mainImage != null ? $"/img/{mainImage}" : "/img/no-image.png";
+    var mainImgSrc = mainImage != null ? $"/img/upload//{mainImage}" : "/img/no-image.png";
 }
 
 <!-- Page Header -->
@@ -32,7 +32,7 @@
                 <div class="d-flex gap-3 overflow-auto pb-2" id="productThumbnails">
                     @foreach (var img in Model.Images)
                     {
-                        var thumbSrc = $"/img/{img.ImageUrl}";
+                        var thumbSrc = $"/img/upload/{img.ImageUrl}";
                         <div class="bg-white rounded-3 border p-2 cursor-pointer product-thumb-item" style="width:80px; height:80px; cursor:pointer;" onclick="document.getElementById('mainProductImage').src='@thumbSrc'; document.querySelectorAll('.product-thumb-item').forEach(e=>e.classList.remove('border-primary')); this.classList.add('border-primary');">
                             <img src="@thumbSrc" class="w-100 h-100 object-fit-contain" alt="Thumbnail" />
                         </div>
@@ -111,7 +111,14 @@
                         <i class="bi bi-bag-plus fs-5 me-2"></i> <span class="fs-5">Add to Cart</span>
                     </button>
                     <button type="button" class="km-btn km-btn-outline km-btn-lg add-to-wishlist-btn" data-id="@Model.Id" title="Add to Wishlist" style="width: 60px; padding:0; display:flex; align-items:center; justify-content:center;">
-                        <i class="bi bi-heart fs-4"></i>
+                        @if (Model.IsInWishlist)
+                        {
+                            <i class="bi bi-heart-fill fs-4" style="color: var(--km-accent);"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-heart fs-4"></i>
+                        }
                     </button>
                 </div>
                 

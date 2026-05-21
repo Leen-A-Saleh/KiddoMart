@@ -32,6 +32,7 @@ namespace All_Baby_Essentials.Areas.Admin.Mappings
             CreateMap<Product, ProductFormVM>();
 
             CreateMap<ProductFormVM, Product>()
+                .ForMember(dest => dest.StockQuantity, opt => opt.Ignore())
                 .ForMember(dest => dest.Category, opt => opt.Ignore())
                 .ForMember(dest => dest.Images, opt => opt.Ignore())
                 .ForMember(dest => dest.Reviews, opt => opt.Ignore())

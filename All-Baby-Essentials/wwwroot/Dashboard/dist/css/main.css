@@ -330,7 +330,7 @@ body {
     left: var(--sidebar-width);
     right: 0;
     height: var(--topbar-height);
-    background: #fff;
+    background: var(--card-bg);
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -514,7 +514,7 @@ body {
 .km-footer {
     padding: 16px 32px;
     border-top: 1px solid var(--border);
-    background: #fff;
+    background: var(--card-bg);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -790,3 +790,304 @@ body {
         margin-bottom: 12px;
         display: block;
     }
+
+/* Vibrant Table CSS */
+.km-card-glass {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05) !important;
+    backdrop-filter: blur(10px);
+}
+.km-vibrant-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+.km-vibrant-table thead {
+    background: #f8f9fa;
+}
+.km-vibrant-table th {
+    font-weight: 700;
+    color: #8392a5;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1.2rem 1.5rem;
+    border: none;
+    border-bottom: 2px solid #edf2f9;
+}
+.km-vibrant-table td {
+    padding: 1.2rem 1.5rem;
+    border: none;
+    border-bottom: 1px solid #edf2f9;
+    transition: all 0.3s ease;
+}
+.km-table-row {
+    transition: all 0.3s ease;
+}
+.km-table-row:hover {
+    background-color: #fcfdfe;
+    transform: scale(1.005);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    z-index: 10;
+    position: relative;
+}
+.km-id-badge {
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+.km-avatar-initial {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(118, 75, 162, 0.3);
+}
+.km-action-group {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+.km-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none !important;
+    background: white;
+    border: 1px solid #e2e8f0;
+}
+.km-icon-btn.km-info { color: #0ea5e9; }
+.km-icon-btn.km-edit { color: #10b981; }
+.km-icon-btn.km-delete { color: #ef4444; }
+.km-icon-btn:hover {
+    transform: translateY(-3px);
+}
+.km-icon-btn.km-info:hover { background: #0ea5e9; color: white; border-color: #0ea5e9; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3); }
+.km-icon-btn.km-edit:hover { background: #10b981; color: white; border-color: #10b981; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
+.km-icon-btn.km-delete:hover { background: #ef4444; color: white; border-color: #ef4444; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+.km-btn-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(118, 75, 162, 0.3);
+    transition: all 0.3s ease;
+}
+.km-btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(118, 75, 162, 0.4);
+    color: white;
+}
+
+/* ─── EXTRA VIBRANT KIDDOMART THEMING ──────────────── */
+
+/* Soft colorful pastel hovers on tables */
+.km-table-row:hover {
+    background-color: #fff5f7 !important; /* Soft pastel pink */
+    transform: scale(1.008);
+    box-shadow: 0 8px 20px rgba(233, 30, 140, 0.06);
+    z-index: 10;
+    position: relative;
+}
+
+/* Custom Kids Color Gradients */
+.km-grad-pink-orange {
+    background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%) !important;
+    color: white !important;
+}
+.km-grad-blue-cyan {
+    background: linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%) !important;
+    color: white !important;
+}
+.km-grad-purple-indigo {
+    background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%) !important;
+    color: white !important;
+}
+.km-grad-yellow-coral {
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%) !important;
+    color: white !important;
+}
+.km-grad-mint-green {
+    background: linear-gradient(135deg, #96fbc4 0%, #f9f586 100%) !important;
+    color: #3b503e !important;
+}
+
+/* Elegant color stripe for the top of cards */
+.km-card-glass {
+    position: relative;
+}
+.km-card-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff758c, #fda085, #f9f586, #96fbc4, #48c6ef, #a18cd1);
+    z-index: 5;
+    border-radius: 20px 20px 0 0;
+}
+
+/* Glowing buttons */
+.km-btn-glow {
+    position: relative;
+    overflow: hidden;
+}
+.km-btn-glow::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: 0.5s;
+}
+.km-btn-glow:hover::after {
+    left: 100%;
+}
+
+
+/* ─── DARK THEME OVERLAYS ─────────────────── */
+[data-theme="dark"] {
+    --content-bg: #0b0b14;
+    --card-bg: #121221;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: rgba(255, 255, 255, 0.08);
+    --brand-50: rgba(233, 30, 140, 0.1);
+    --brand-100: rgba(233, 30, 140, 0.2);
+    
+    /* Sidebar Overrides in Dark Mode */
+    --sidebar-bg: #090910;
+    --sidebar-surface: #0c0c16;
+    --sidebar-hover: rgba(255, 255, 255, 0.05);
+    --sidebar-active: rgba(240, 98, 142, 0.15);
+}
+
+/* Global Overrides for dark theme compatibility */
+[data-theme="dark"] .bg-white,
+[data-theme="dark"] .card-header.bg-white,
+[data-theme="dark"] .card-footer.bg-light {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .card {
+    background-color: var(--card-bg) !important;
+    border-color: var(--border) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .km-card-glass {
+    background: rgba(18, 18, 33, 0.85);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25) !important;
+}
+
+[data-theme="dark"] .km-vibrant-table thead {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .km-vibrant-table th {
+    color: #94a3b8;
+    border-bottom: 2px solid var(--border);
+}
+
+[data-theme="dark"] .km-vibrant-table td {
+    border-bottom: 1px solid var(--border);
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .km-table-row:hover {
+    background-color: rgba(233, 30, 140, 0.05) !important; /* Soft dark magenta/pink hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .text-dark,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .text-muted {
+    color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .border {
+    border-color: var(--border) !important;
+}
+
+[data-theme="dark"] .table-light {
+    background-color: var(--sidebar-surface) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .km-toggle-btn:hover,
+[data-theme="dark"] .km-icon-btn:hover {
+    background: var(--brand-50);
+    color: var(--brand-400);
+}
+
+[data-theme="dark"] .km-breadcrumb-current {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .km-id-badge {
+    background: var(--sidebar-surface);
+    color: #94a3b8;
+}
+
+[data-theme="dark"] select,
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
+    background-color: var(--sidebar-surface) !important;
+    border-color: var(--border) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] select:focus,
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus {
+    border-color: var(--brand-400) !important;
+}
+
+[data-theme="dark"] .btn-outline {
+    border-color: var(--border);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .btn-outline:hover {
+    background: var(--brand-50);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .alert-warning {
+    background-color: #2c1a04 !important;
+    color: #fbd38d !important;
+}
+
+[data-theme="dark"] .km-avatar-initial {
+    background: linear-gradient(135deg, #2c2c44 0%, #1e1e2f 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+

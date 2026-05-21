@@ -3,32 +3,87 @@
   "WorkspaceRootPath": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\views\\applicationuser\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\views\\applicationuser\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\views\\categories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\views\\categories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\views\\categories\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\views\\categories\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\wwwroot\\css\\kiddomart.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\wwwroot\\css\\kiddomart.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\customer\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\customer\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\customer\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\customer\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\viewmodels\\productformvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\viewmodels\\productformvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\viewmodels\\catproductvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\viewmodels\\catproductvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\viewmodels\\categoryvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\viewmodels\\categoryvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/./KiddoMart/True/SqlTable/dbo.Categories.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\customer\\views\\product\\productdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\customer\\views\\product\\productdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\customer\\views\\shared\\_wishlistoffcanvaspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\customer\\views\\shared\\_wishlistoffcanvaspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\customer\\views\\shared\\_quickviewpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\customer\\views\\shared\\_quickviewpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\customer\\views\\shared\\_cartoffcanvaspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\customer\\views\\shared\\_cartoffcanvaspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\customer\\views\\category\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\customer\\views\\category\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\services\\imageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\services\\imageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\customer\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\customer\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\data\\migrations\\20260517200000_addcascadedeleteforcategoryproducts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\data\\migrations\\20260517200000_addcascadedeleteforcategoryproducts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\views\\reviews\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\views\\reviews\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\admin\\viewmodels\\productreviewvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\admin\\viewmodels\\productreviewvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\models\\productreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\models\\productreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|c:\\users\\leena\\onedrive\\desktop\\kiddomart\\all-baby-essentials\\areas\\customer\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{91E7DA47-9CE5-435A-B3AF-DF68921EC28B}|All-Baby-Essentials\\All-Baby-Essentials.csproj|solutionrelative:all-baby-essentials\\areas\\customer\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -52,87 +107,251 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Category\\Index.cshtml",
-              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Customer\\Views\\Category\\Index.cshtml",
-              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Category\\Index.cshtml",
-              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Customer\\Views\\Category\\Index.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAABaAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\ApplicationUser\\Index.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\Views\\ApplicationUser\\Index.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\ApplicationUser\\Index.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\Views\\ApplicationUser\\Index.cshtml",
+              "ViewState": "AgIAADMAAAAAAAAAAAAIwE0AAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-17T20:35:55.184Z",
+              "WhenOpened": "2026-05-19T00:19:55.136Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ImageService.cs",
-              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Services\\ImageService.cs",
-              "RelativeDocumentMoniker": "All-Baby-Essentials\\Services\\ImageService.cs",
-              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Services\\ImageService.cs",
-              "RelativeToolTip": "All-Baby-Essentials\\Services\\ImageService.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T20:27:08.212Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "20260517200000_AddCascadeDeleteForCategoryProducts.cs",
-              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Data\\Migrations\\20260517200000_AddCascadeDeleteForCategoryProducts.cs",
-              "RelativeDocumentMoniker": "All-Baby-Essentials\\Data\\Migrations\\20260517200000_AddCascadeDeleteForCategoryProducts.cs",
-              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Data\\Migrations\\20260517200000_AddCascadeDeleteForCategoryProducts.cs",
-              "RelativeToolTip": "All-Baby-Essentials\\Data\\Migrations\\20260517200000_AddCascadeDeleteForCategoryProducts.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T20:00:01.978Z"
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Categories\\Index.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\Views\\Categories\\Index.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Categories\\Index.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\Views\\Categories\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T23:52:36.296Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "All-Baby-Essentials\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "All-Baby-Essentials\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAqwDQAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T19:57:30.626Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ProductReviewVM.cs",
-              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\ViewModels\\ProductReviewVM.cs",
-              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\ViewModels\\ProductReviewVM.cs",
-              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\ViewModels\\ProductReviewVM.cs",
-              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\ViewModels\\ProductReviewVM.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T19:53:27.152Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ProductReview.cs",
-              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Models\\ProductReview.cs",
-              "RelativeDocumentMoniker": "All-Baby-Essentials\\Models\\ProductReview.cs",
-              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Models\\ProductReview.cs",
-              "RelativeToolTip": "All-Baby-Essentials\\Models\\ProductReview.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T19:53:21.834Z"
+              "Title": "kiddomart.css",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\wwwroot\\css\\kiddomart.css",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\wwwroot\\css\\kiddomart.css",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\wwwroot\\css\\kiddomart.css",
+              "RelativeToolTip": "All-Baby-Essentials\\wwwroot\\css\\kiddomart.css",
+              "ViewState": "AgIAAC4AAAAAAAAAAADwvzIAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-05-18T23:17:27.775Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Reviews\\Index.cshtml",
-              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\Views\\Reviews\\Index.cshtml",
-              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Reviews\\Index.cshtml",
-              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\Views\\Reviews\\Index.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAACcAAAArAAAAAAAAAA==",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAIwBUAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-17T19:45:46.32Z"
+              "WhenOpened": "2026-05-18T23:16:58.46Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\appsettings.json",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\appsettings.json",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\appsettings.json",
+              "RelativeToolTip": "All-Baby-Essentials\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-18T23:14:02.659Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Orders\\Index.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Customer\\Views\\Orders\\Index.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Orders\\Index.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Customer\\Views\\Orders\\Index.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAIwDYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T22:59:52.506Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Products\\Index.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\Views\\Products\\Index.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Products\\Index.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\Views\\Products\\Index.cshtml",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T22:59:40.256Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Categories\\Details.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\Views\\Categories\\Details.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Categories\\Details.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\Views\\Categories\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T21:10:48.464Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ProductFormVM.cs",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\ViewModels\\ProductFormVM.cs",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\ViewModels\\ProductFormVM.cs",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\ViewModels\\ProductFormVM.cs",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\ViewModels\\ProductFormVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T21:40:01.469Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CatProductVM.cs",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\ViewModels\\CatProductVM.cs",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\ViewModels\\CatProductVM.cs",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\ViewModels\\CatProductVM.cs",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\ViewModels\\CatProductVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T21:39:52.748Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CategoryVM.cs",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\ViewModels\\CategoryVM.cs",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\ViewModels\\CategoryVM.cs",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\ViewModels\\CategoryVM.cs",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\ViewModels\\CategoryVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T21:39:28.366Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "dbo.Categories.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/./KiddoMart/True/SqlTable/dbo.Categories.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/./KiddoMart/True/SqlTable/dbo.Categories.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-05-18T21:34:52.113Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Products\\Details.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\Views\\Products\\Details.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Products\\Details.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\Views\\Products\\Details.cshtml",
+              "ViewState": "AgIAAKcAAAAAAAAAAAAAAIQAAABpAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T21:29:20.343Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ProductDetails.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Product\\ProductDetails.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Customer\\Views\\Product\\ProductDetails.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Product\\ProductDetails.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Customer\\Views\\Product\\ProductDetails.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACIAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T21:22:16.459Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "_WishlistOffcanvasPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_WishlistOffcanvasPartial.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_WishlistOffcanvasPartial.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_WishlistOffcanvasPartial.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_WishlistOffcanvasPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T21:24:00.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "_QuickViewPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_QuickViewPartial.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_QuickViewPartial.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_QuickViewPartial.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_QuickViewPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T21:23:45.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "_CartOffcanvasPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_CartOffcanvasPartial.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_CartOffcanvasPartial.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_CartOffcanvasPartial.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Customer\\Views\\Shared\\_CartOffcanvasPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T21:23:19.427Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Customer\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Customer\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAnwF4AAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T21:18:48.937Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Admin\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Admin\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Admin\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T21:18:34.968Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Category\\Index.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Customer\\Views\\Category\\Index.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Category\\Index.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Customer\\Views\\Category\\Index.cshtml",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAIwBYAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T21:06:51.643Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Product\\Index.cshtml",
+              "RelativeDocumentMoniker": "All-Baby-Essentials\\Areas\\Customer\\Views\\Product\\Index.cshtml",
+              "ToolTip": "C:\\Users\\leena\\OneDrive\\Desktop\\KiddoMart\\All-Baby-Essentials\\Areas\\Customer\\Views\\Product\\Index.cshtml",
+              "RelativeToolTip": "All-Baby-Essentials\\Areas\\Customer\\Views\\Product\\Index.cshtml",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAnwJAAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T21:06:06.114Z"
             }
           ]
         }

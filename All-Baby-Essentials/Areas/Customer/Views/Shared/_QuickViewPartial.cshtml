@@ -5,7 +5,7 @@
     <div class="col-md-6 bg-light d-flex align-items-center justify-content-center p-4">
         @{
             var mainImage = Model.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? Model.Images.FirstOrDefault()?.ImageUrl;
-            var imgSrc = mainImage != null ? $"/img/{mainImage}" : "/img/no-image.png";
+            var imgSrc = mainImage != null ? $"/img/upload//{mainImage}" : "/img/no-image.png";
         }
         <img src="@imgSrc" alt="@Model.Name" class="img-fluid rounded shadow-sm" style="max-height:400px; object-fit:contain;" />
     </div>

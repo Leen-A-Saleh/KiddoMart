@@ -24,12 +24,18 @@
 
             <div class="col-12 col-sm-6 col-md-4 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
                 <a asp-area="Customer" asp-controller="Product" asp-action="Index" asp-route-categoryId="@cat.Id" class="text-decoration-none d-block h-100">
-                    <div class="km-category-card position-relative overflow-hidden rounded shadow-sm border h-100" style="aspect-ratio: 1; background:var(--km-bg);">
-                        <img src="@image" alt="@cat.Name" class="w-100 h-100 object-fit-cover" style="transition: transform 0.5s ease;" />
+                    <div class="km-category-card position-relative overflow-hidden rounded-4 h-100" style="aspect-ratio: 1; background:var(--km-bg);">
+                        <img src="@image" alt="@cat.Name" class="w-100 h-100 object-fit-cover km-category-img" />
                         
-                        <div class="position-absolute bottom-0 start-0 w-100 p-4" style="background: linear-gradient(to top, rgba(15,23,42,0.8), transparent);">
-                            <h3 class="text-white mb-1" style="font-size: 1.25rem;">@cat.Name</h3>
-                            <span class="text-white opacity-75 small">@cat.Products.Count() Products</span>
+                        <!-- Ultra Modern Hover Overlay -->
+                        <div class="km-category-overlay">
+                            <div class="km-category-content">
+                                <h3 class="km-category-title">@cat.Name</h3>
+                                <span class="km-category-count">@cat.Products.Count() Products</span>
+                                <div class="km-category-btn mt-3">
+                                    <i class="bi bi-arrow-right"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </a>
@@ -39,11 +45,82 @@
 </div>
 
 <style>
-.km-category-card:hover img {
-    transform: scale(1.1);
+.km-category-card {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.km-category-img {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.km-category-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5); /* Dark semi-transparent overlay */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(4px); /* Glassmorphism blur */
 }
 .km-category-card:hover {
-    box-shadow: var(--km-shadow-lg) !important;
-    border-color: var(--km-primary-light) !important;
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+.km-category-card:hover .km-category-img {
+    transform: scale(1.15); /* Stronger zoom on hover */
+}
+.km-category-card:hover .km-category-overlay {
+    opacity: 1; /* Fade in overlay */
+}
+.km-category-content {
+    text-align: center;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.km-category-card:hover .km-category-content {
+    transform: translateY(0); /* Slide up on hover */
+}
+.km-category-title {
+    color: #ffffff;
+    font-family: var(--km-font-brand);
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    letter-spacing: 0.5px;
+}
+.km-category-count {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.km-category-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--km-accent);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.4s ease 0.1s;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0, 194, 168, 0.4);
+}
+.km-category-card:hover .km-category-btn {
+    opacity: 1;
+    transform: scale(1);
 }
 </style>

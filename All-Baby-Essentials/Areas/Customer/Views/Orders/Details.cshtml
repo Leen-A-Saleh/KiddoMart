@@ -1,39 +1,125 @@
 @model All_Baby_Essentials.Models.Order
 
-<div class="container mt-4">
+<!-- Page Header -->
+<div class="km-page-header" data-aos="fade-down" style="padding: 3rem 0; margin-bottom: 2rem;">
+    <div class="container" style="max-width:1280px;">
+        <h1>Order Details</h1>
+        <p>Review the details of Order #@Model.Id.</p>
+        <div class="km-breadcrumb justify-content-center mt-3">
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+            <span class="sep">/</span>
+            <a asp-area="Customer" asp-controller="Orders" asp-action="Index">My Orders</a>
+            <span class="sep">/</span>
+            <span style="color:#fff;">#@Model.Id</span>
+        </div>
+    </div>
+</div>
 
-    <h2>Order #@Model.Id</h2>
+<div class="container mb-5" style="max-width: 1280px; min-height: 40vh;">
+    
+    <div class="row g-4">
+        
+        <!-- Left: Items -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+                <div class="card-header bg-white border-bottom-0 py-4 px-4">
+                    <h4 class="mb-0 fw-bold" style="font-family: var(--km-font-brand);">Items Ordered</h4>
+                </div>
+                <div class="table-responsive px-2">
+                    <table class="table mb-0 align-middle">
+                        <thead style="background-color: var(--km-primary-light);">
+                            <tr>
+                                <th class="py-3 px-4 border-0">Product</th>
+                                <th class="py-3 px-4 border-0 text-center">Qty</th>
+                                <th class="py-3 px-4 border-0 text-end">Price</th>
+                                <th class="py-3 px-4 border-0 text-end">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderItems)
+                            {
+                                <tr class="border-bottom">
+                                    <td class="py-3 px-4">
+                                        <div class="d-flex align-items-center gap-3">
+                                            @if (item.Product.Images != null && item.Product.Images.Any())
+                                            {
+                                                var img = item.Product.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? item.Product.Images.First().ImageUrl;
+                                                <img src="/img/upload/@img" alt="@item.Product.Name" class="rounded" style="width: 60px; height: 60px; object-fit: cover;" />
+                                            }
+                                            else
+                                            {
+                                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                                    <i class="bi bi-image text-muted"></i>
+                                                </div>
+                                            }
+                                            <span class="fw-bold">@item.Product.Name</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-4 text-center text-muted">x @item.Quantity</td>
+                                    <td class="py-3 px-4 text-end text-muted">$@item.UnitPrice</td>
+                                    <td class="py-3 px-4 text-end fw-bold" style="color: var(--km-primary);">$@(item.UnitPrice * item.Quantity)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer bg-white border-top-0 py-4 px-4 text-end">
+                    <div class="d-flex justify-content-end align-items-center gap-4">
+                        <span class="text-muted fs-5">Total Amount:</span>
+                        <span class="fs-4 fw-bold" style="color: var(--km-accent);">$@Model.TotalAmount</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <p><strong>Status:</strong> @Model.Status</p>
-    <p><strong>Total:</strong> $@Model.TotalAmount</p>
+        <!-- Right: Summary & Info -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
+                <h4 class="mb-4 fw-bold" style="font-family: var(--km-font-brand);">Order Summary</h4>
+                
+                <div class="d-flex flex-column gap-4">
+                    
+                    <div>
+                        <span class="text-muted d-block mb-1">Order Status</span>
+                        @{
+                            var badgeClass = Model.Status switch
+                            {
+                                All_Baby_Essentials.Models.OrderStatus.Completed => "bg-success",
+                                All_Baby_Essentials.Models.OrderStatus.Processing => "bg-warning text-dark",
+                                All_Baby_Essentials.Models.OrderStatus.Cancelled => "bg-danger",
+                                _ => "bg-secondary"
+                            };
+                        }
+                        <span class="badge @badgeClass rounded-pill px-3 py-2 fs-6">@Model.Status</span>
+                    </div>
 
-    <hr />
+                    <div>
+                        <span class="text-muted d-block mb-1">Order Date</span>
+                        <span class="fw-bold text-dark">@Model.OrderDate.ToString("MMMM dd, yyyy - hh:mm tt")</span>
+                    </div>
+                    
+                    <div>
+                        <span class="text-muted d-block mb-1">Payment Method</span>
+                        <span class="fw-bold text-dark"><i class="bi bi-credit-card me-2 text-primary"></i>@Model.PaymentMethod</span>
+                    </div>
 
-    <h4>Items</h4>
+                    <div>
+                        <span class="text-muted d-block mb-1">Shipping Details</span>
+                        <div class="bg-light p-3 rounded mt-2">
+                            <strong class="d-block mb-1">@Model.FullName</strong>
+                            <span class="d-block text-muted">@Model.PhoneNumber</span>
+                            <span class="d-block text-muted">@Model.ShippingAddress</span>
+                            <span class="d-block text-muted">@Model.City, @Model.Country</span>
+                        </div>
+                    </div>
 
-    <table class="table table-bordered">
+                </div>
+                
+                <a asp-action="Index" class="km-btn km-btn-outline w-100 mt-auto pt-3">
+                    <i class="bi bi-arrow-left"></i> Back to Orders
+                </a>
+            </div>
+        </div>
 
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var item in Model.OrderItems)
-            {
-                <tr>
-                    <td>@item.Product.Name</td>
-                    <td>$@item.UnitPrice</td>
-                    <td>@item.Quantity</td>
-                    <td>$@(item.UnitPrice* item.Quantity)</td>
-                </tr>
-            }
-        </tbody>
-
-    </table>
-
+    </div>
 </div>

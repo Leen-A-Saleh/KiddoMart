@@ -6,7 +6,7 @@
         <div class="flex-grow-1 overflow-auto" style="padding:1rem;">
             @foreach (var item in Model)
             {
-                var imgSrc = string.IsNullOrEmpty(item.ImageUrl) ? "/img/no-image.png" : $"/img/{item.ImageUrl}";
+                var imgSrc = string.IsNullOrEmpty(item.ImageUrl) ? "/img/no-image.png" : $"/img/upload//{item.ImageUrl}";
                 <div class="km-cart-item mb-3">
                     <img src="@imgSrc" alt="@item.ProductName" class="km-cart-item-img" />
                     <div class="km-cart-item-details">

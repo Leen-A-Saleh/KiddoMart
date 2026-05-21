@@ -36,6 +36,13 @@ namespace All_Baby_Essentials.Areas.Customer.Controllers
                 .FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
             if (product == null) return NotFound();
             var productVM = _mapper.Map<ProductDetailsVM>(product);
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                productVM.IsInWishlist = await _context.WishlistItems.AnyAsync(w => w.UserId == userId && w.ProductId == id);
+            }
+
             return View(productVM);
         }
 
@@ -119,6 +126,18 @@ namespace All_Baby_Essentials.Areas.Customer.Controllers
                 PageSize = pageSize,
                 TotalItems = totalItems
             };
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var wishlistProductIds = await _context.WishlistItems
+                    .Where(w => w.UserId == userId)
+                    .Select(w => w.ProductId)
+                    .ToListAsync();
+
+                foreach (var p in vm.Items)
+                    p.IsInWishlist = wishlistProductIds.Contains(p.Id);
+            }
 
             ViewBag.CategoryId = categoryId;
             ViewBag.Search = search;

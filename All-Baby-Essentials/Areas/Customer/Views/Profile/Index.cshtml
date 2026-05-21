@@ -2,24 +2,18 @@
 
 <div id="page-content">
 
-    <!-- Breadcrumbs -->
-    <div class="breadcrumbs-wrapper">
-        <div class="container">
-            <div class="breadcrumbs">
-                <a asp-area="Customer" asp-controller="Home" asp-action="Index">
-                    Home
-                </a>
-                <span>|</span>
-                <span>My Account</span>
+    <!-- Page Header -->
+    <div class="km-page-header" data-aos="fade-down" style="padding: 3rem 0; margin-bottom: 2rem;">
+        <div class="container" style="max-width:1280px;">
+            <h1>My Account</h1>
+            <p>Manage your profile and settings.</p>
+            <div class="km-breadcrumb justify-content-center mt-3">
+                <a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+                <span class="sep">/</span>
+                <span style="color:#fff;">My Account</span>
             </div>
         </div>
     </div>
-
-    <div class="container">
-
-        <div class="page-title">
-            <h1>My Account</h1>
-        </div>
 
         <!-- Top Info -->
         <div class="dashboard-upper-info mb-5">
@@ -128,47 +122,32 @@
 
                             <div class="row">
 
-                                <div class="form-group col-md-6 mb-3">
-                                    <label>Full Name</label>
-
-                                    <input asp-for="FullName"
-                                           class="form-control" />
-
-                                    <span asp-validation-for="FullName"
-                                          class="text-danger"></span>
+                                <div class="col-md-6 mb-3">
+                                    <label class="km-label">Full Name</label>
+                                    <input asp-for="FullName" class="km-form-control" />
+                                    <span asp-validation-for="FullName" class="text-danger"></span>
                                 </div>
-
-                                <div class="form-group col-md-6 mb-3">
-                                    <label>Email</label>
-
-                                    <input asp-for="Email"
-                                           class="form-control"
-                                           readonly />
+                                <div class="col-md-6 mb-3">
+                                    <label class="km-label">Email</label>
+                                    <input asp-for="Email" class="km-form-control" readonly style="background:#f1f5f9;" />
                                 </div>
 
                             </div>
 
                             <div class="row">
 
-                                <div class="form-group col-md-6 mb-3">
-                                    <label>Phone Number</label>
-
-                                    <input asp-for="PhoneNumber"
-                                           class="form-control" />
+                                <div class="col-md-6 mb-3">
+                                    <label class="km-label">Phone Number</label>
+                                    <input asp-for="PhoneNumber" class="km-form-control" />
                                 </div>
-
-                                <div class="form-group col-md-6 mb-3">
-                                    <label>Date Of Birth</label>
-
-                                    <input asp-for="DateOfBirth"
-                                           type="date"
-                                           class="form-control" />
+                                <div class="col-md-6 mb-3">
+                                    <label class="km-label">Date Of Birth</label>
+                                    <input asp-for="DateOfBirth" type="date" class="km-form-control" />
                                 </div>
 
                             </div>
 
-                            <button type="submit"
-                                    class="btn btn-primary">
+                            <button type="submit" class="km-btn km-btn-primary mt-3">
                                 Save Changes
                             </button>
 
@@ -185,6 +164,112 @@
     </div>
 
 </div>
+
+<style>
+/* ── PROFILE PAGE CSS OVERRIDES ── */
+
+.dashboard-upper-info {
+    background: var(--km-surface);
+    border-radius: var(--km-radius);
+    padding: 2rem;
+    box-shadow: var(--km-shadow-sm);
+    border: 1px solid var(--km-border);
+    margin-top: -2rem; /* Pull up slightly over the header spacing */
+    position: relative;
+    z-index: 10;
+}
+
+.d-single-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.d-single-info p {
+    margin: 0;
+    color: var(--km-muted);
+    font-size: 0.95rem;
+}
+.d-single-info .user-name {
+    font-family: var(--km-font-brand);
+    font-size: 1.25rem;
+    color: var(--km-text);
+    margin-bottom: 0.25rem;
+}
+.d-single-info .font-weight-600 {
+    font-weight: 800;
+    color: var(--km-primary);
+}
+
+.d-single-info a.view-cart {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--km-accent);
+    color: #fff;
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--km-radius-pill);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 194, 168, 0.2);
+}
+.d-single-info a.view-cart:hover {
+    background: var(--km-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 194, 168, 0.3);
+}
+
+.dashboard-list {
+    background: var(--km-surface);
+    border-radius: var(--km-radius);
+    padding: 1rem;
+    box-shadow: var(--km-shadow-sm);
+    border: 1px solid var(--km-border);
+}
+
+.dashboard-list li {
+    margin-bottom: 0.25rem;
+}
+
+.dashboard-list li a {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-radius: var(--km-radius-sm);
+    color: var(--km-text-2);
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.dashboard-list li a:hover {
+    background: var(--km-bg);
+    color: var(--km-primary);
+}
+
+.dashboard-list li a.active {
+    background: var(--km-primary-light);
+    color: var(--km-primary);
+    font-weight: 600;
+    border-left: 4px solid var(--km-primary);
+}
+
+.dashboard-content {
+    background: var(--km-surface);
+    border-radius: var(--km-radius) !important;
+    padding: 2.5rem !important;
+    box-shadow: var(--km-shadow-sm);
+    border: 1px solid var(--km-border) !important;
+}
+
+.dashboard-content h3 {
+    font-family: var(--km-font-brand);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--km-text);
+    margin-bottom: 1.5rem !important;
+}
+</style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

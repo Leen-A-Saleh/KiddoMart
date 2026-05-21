@@ -30,12 +30,8 @@ namespace All_Baby_Essentials.Areas.Admin.ViewModels
         [Range(0, 100, ErrorMessage = "Discount percentage must be between 0 and 100.")]
         public decimal? DiscountPercentage { get; set; }
 
-        [Required(ErrorMessage = "Stock quantity is required.")]
-        [Range(0, int.MaxValue,
-            ErrorMessage = "Stock quantity cannot be negative.")]
-        public int StockQuantity { get; set; }
-
         [Required(ErrorMessage = "Please select a category.")]
+        [Display(Name="Category Name")]
         public int CategoryId { get; set; }
         public List<IFormFile>? ImageFiles { get; set; }
 

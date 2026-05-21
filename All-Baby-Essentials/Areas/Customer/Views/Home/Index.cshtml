@@ -89,7 +89,7 @@
             @foreach (var item in Model.LatestProducts)
             {
                 var img = item.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? item.Images.FirstOrDefault()?.ImageUrl;
-                var imgSrc = img != null ? $"/img/{img}" : "/img/no-image.png";
+                var imgSrc = img != null ? $"/img/upload/{img}" : "/img/no-image.png";
 
                 <article class="km-product-card @(item.StockQuantity <= 0 ? "out-of-stock" : "")" data-aos="fade-up" data-aos-delay="100">
                     @if (item.DiscountPercentage.HasValue && item.DiscountPercentage.Value > 0)
@@ -111,7 +111,14 @@
                                 <i class="bi bi-bag-plus"></i> Add
                             </button>
                             <button type="button" class="km-product-action-btn add-to-wishlist-btn" data-id="@item.Id" aria-label="Add to wishlist">
-                                <i class="bi bi-heart"></i>
+                                @if (item.IsInWishlist)
+                                {
+                                    <i class="bi bi-heart-fill" style="color: var(--km-accent);"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-heart"></i>
+                                }
                             </button>
                             <button type="button" class="km-product-action-btn quick-view-btn" data-id="@item.Id" aria-label="Quick view">
                                 <i class="bi bi-eye"></i>
@@ -172,7 +179,7 @@
                 @foreach (var item in Model.PopularProducts)
                 {
                     var img = item.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? item.Images.FirstOrDefault()?.ImageUrl;
-                    var imgSrc = img != null ? $"/img/{img}" : "/img/no-image.png";
+                    var imgSrc = img != null ? $"/img/upload/{img}" : "/img/no-image.png";
 
                     <article class="km-product-card @(item.StockQuantity <= 0 ? "out-of-stock" : "")" data-aos="fade-up" data-aos-delay="100">
                         @if (item.DiscountPercentage.HasValue && item.DiscountPercentage.Value > 0)
@@ -198,7 +205,14 @@
                                     <i class="bi bi-bag-plus"></i> Add
                                 </button>
                                 <button type="button" class="km-product-action-btn add-to-wishlist-btn" data-id="@item.Id" aria-label="Add to wishlist">
-                                    <i class="bi bi-heart"></i>
+                                    @if (item.IsInWishlist)
+                                    {
+                                        <i class="bi bi-heart-fill" style="color: var(--km-accent);"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-heart"></i>
+                                    }
                                 </button>
                                 <button type="button" class="km-product-action-btn quick-view-btn" data-id="@item.Id" aria-label="Quick view">
                                     <i class="bi bi-eye"></i>
@@ -244,37 +258,71 @@
 <!-- ══ TESTIMONIALS ══ -->
 @if (Model.Testimonials.Any())
 {
+    var testimonialsList = Model.Testimonials.ToList();
+    int chunkSize = 3;
+    int chunksCount = (int)Math.Ceiling((double)testimonialsList.Count / chunkSize);
+
     <section class="py-5 my-5" aria-labelledby="testimonials-heading">
         <div class="container-fluid" style="max-width:1280px;">
             <div class="km-section-header" data-aos="fade-up">
                 <span class="km-tag">Happy Parents</span>
                 <h2 id="testimonials-heading">What Our Customers Say</h2>
             </div>
-            <div class="row g-4 justify-content-center">
-                @foreach (var item in Model.Testimonials.Take(3))
-                {
-                    <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="bg-white p-4 rounded-4 shadow-sm border h-100 d-flex flex-column" style="transition:transform 0.3s; cursor:pointer;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                            <div class="d-flex mb-3" style="color:var(--km-gold);">
-                                @for (int i = 1; i <= 5; i++)
+            
+            <div id="testimonialCarousel" class="carousel slide px-4 px-md-5" data-bs-ride="carousel" data-aos="zoom-in" data-aos-delay="100">
+                <div class="carousel-inner pb-5 pt-3">
+                    @for (int idx = 0; idx < chunksCount; idx++)
+                    {
+                        <div class="carousel-item @(idx == 0 ? "active" : "")">
+                            <div class="row justify-content-center g-4">
+                                @for (int i = idx * chunkSize; i < Math.Min((idx + 1) * chunkSize, testimonialsList.Count); i++)
                                 {
-                                    <i class="bi @(i <= item.Rating ? "bi-star-fill" : "bi-star") me-1"></i>
+                                    var item = testimonialsList[i];
+                                    <div class="col-md-4 col-12">
+                                        <div class="bg-white p-4 rounded-4 shadow-sm border h-100 d-flex flex-column text-center">
+                                            <div class="d-flex justify-content-center mb-3" style="color:var(--km-gold);">
+                                                @for (int r = 1; r <= 5; r++)
+                                                {
+                                                    <i class="bi @(r <= item.Rating ? "bi-star-fill" : "bi-star") mx-1 fs-5"></i>
+                                                }
+                                            </div>
+                                            <p class="text-muted mb-4 flex-grow-1 fst-italic" style="font-size:1.05rem; line-height:1.6;">"@item.Content"</p>
+                                            <div class="d-flex flex-column align-items-center justify-content-center gap-2 mt-2">
+                                                <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width:48px; height:48px; background:var(--km-primary); font-size:1.2rem;">
+                                                    @(string.IsNullOrWhiteSpace(item.User?.FullName) ? "U" : item.User.FullName.Substring(0, 1).ToUpper())
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold text-dark fs-5">@item.User?.FullName</div>
+                                                    <div class="small text-muted">Verified Buyer</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                             </div>
-                            <p class="text-muted mb-4 flex-grow-1" style="font-size:1.05rem; line-height:1.6;">"@item.Content"</p>
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold" style="width:40px; height:40px; background:var(--km-primary);">
-                                    @(string.IsNullOrWhiteSpace(item.User?.FullName) ? "U" : item.User.FullName.Substring(0, 1).ToUpper())
-                                </div>
-                                <div>
-                                    <div class="fw-bold text-dark">@item.User?.FullName</div>
-                                    <div class="small text-muted">Verified Buyer</div>
-                                </div>
-                            </div>
                         </div>
+                    }
+                </div>
+                
+                <div class="carousel-indicators" style="bottom: -10px;">
+                    @for (int idx = 0; idx < chunksCount; idx++)
+                    {
+                        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="@idx" class="@(idx == 0 ? "active" : "")" aria-current="@(idx == 0 ? "true" : "false")" aria-label="Slide @(idx + 1)" style="background-color: var(--km-primary); width: 10px; height: 10px; border-radius: 50%;"></button>
+                    }
+                </div>
+                
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev" style="width: 5%; opacity: 1;">
+                    <div class="bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; border: 1px solid var(--km-border);">
+                        <i class="bi bi-chevron-left text-dark fs-4"></i>
                     </div>
-                }
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next" style="width: 5%; opacity: 1;">
+                    <div class="bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; border: 1px solid var(--km-border);">
+                        <i class="bi bi-chevron-right text-dark fs-4"></i>
+                    </div>
+                </button>
             </div>
+            
         </div>
     </section>
 }

@@ -1,28 +1,27 @@
-@model All_Baby_Essentials.Areas.Admin.ViewModels.ProductColorVM
+﻿@model All_Baby_Essentials.Areas.Admin.ViewModels.ProductColorVM
 @{
     ViewData["Title"] = "Edit Color Variant";
 }
 
-@section Title {
-    Products
-}
+<div class="category-dashboard-container mt-4" style="max-width: 700px; margin: 0 auto;">
+    
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 px-3">
+        <div>
+            <h2 class="mb-1" style="font-weight: 800; color: #2b3445; letter-spacing: -0.5px;">
+                <i class="fas fa-edit text-primary mr-2" style="background: linear-gradient(135deg, #00c2a8 0%, #00a890 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i> 
+                Edit Color Variant
+            </h2>
+            <p class="text-muted mb-0" style="font-size: 0.95rem;">Update stock or image details for this color variant.</p>
+        </div>
+        <a asp-action="Index" asp-route-productId="@Model.ProductId" class="btn btn-outline-secondary" style="border-radius: 10px;">
+            <i class="fas fa-arrow-left mr-1"></i> Back to Colors
+        </a>
+    </div>
 
-@section SubTitle {
-    Edit Color Variant: @Model.ColorName
-}
-
-@section ActionBtn {
-    <a asp-action="Index" asp-route-productId="@Model.ProductId" class="btn btn-secondary">
-        <i class="fas fa-arrow-left"></i> Back to Colors
-    </a>
-}
-
-<div class="row p-3 justify-content-center">
-    <div class="col-md-6">
-        <div class="card card-primary card-outline shadow-sm border rounded">
-            <div class="card-header bg-light">
-                <h5 class="card-title m-0 fw-bold"><i class="fas fa-edit me-1 text-primary"></i> Edit Color Variant</h5>
-            </div>
+    <!-- Edit Form Card -->
+    <div class="card border-0 km-card-glass shadow-lg">
+        <div class="card-body p-4 p-md-5">
             <form asp-controller="ProductColors" asp-action="Edit" method="post" enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="Id" />
@@ -30,62 +29,98 @@
                 <input type="hidden" asp-for="ColorId" />
                 <input type="hidden" name="existingImageUrl" value="@Model.ImageUrl" />
 
-                <div class="card-body">
-                    <!-- Read-Only Info -->
-                    <div class="mb-4 p-3 bg-light border rounded">
-                        <div class="d-flex align-items-center mb-2">
-                            <span class="fw-bold me-2 text-dark">Color Swatch:</span>
-                            <div class="rounded-circle border border-2 shadow-sm" style="width: 32px; height: 32px; background-color: @Model.ColorHexCode;"></div>
+                <!-- Read-Only Color Info Banner -->
+                <div class="mb-4 p-4 border rounded-lg d-flex align-items-center justify-content-between" style="background-color: #f8fafc; border-color: #e2e8f0 !important;">
+                    <div>
+                        <span class="text-muted small text-uppercase font-weight-bold d-block mb-1" style="letter-spacing: 0.5px;">Color Info</span>
+                        <h5 class="mb-0 font-weight-bold text-dark">@Model.ColorName</h5>
+                        <code class="text-muted small">@Model.ColorHexCode</code>
+                    </div>
+                    <div class="rounded-circle border shadow" style="width: 50px; height: 50px; background-color: @Model.ColorHexCode;"></div>
+                </div>
+
+                <!-- Stock Quantity -->
+                <div class="form-group mb-4">
+                    <label asp-for="StockQuantity" class="form-label font-weight-bold text-dark">Stock Quantity <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white border-right-0"><i class="fas fa-cubes text-muted"></i></span>
                         </div>
-                        <div>
-                            <span class="fw-bold text-dark">Color Name:</span> <strong class="text-primary">@Model.ColorName</strong>
+                        <input type="number" asp-for="StockQuantity" class="form-control border-left-0 km-input" placeholder="0" min="0" required style="box-shadow:none;" />
+                    </div>
+                    <span asp-validation-for="StockQuantity" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <!-- Image Showcase & Upload -->
+                <div class="row mb-5">
+                    <!-- Current Image Showcase -->
+                    <div class="col-sm-6 mb-4 mb-sm-0">
+                        <label class="form-label font-weight-bold text-dark d-block">Current Variant Image</label>
+                        <div class="border rounded-lg p-3 text-center bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
+                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <img src="/img/@Model.ImageUrl" alt="Current Variant" class="img-fluid rounded shadow-sm" style="max-height: 150px; object-fit: contain;" />
+                            }
+                            else
+                            {
+                                <div class="text-muted">
+                                    <i class="fas fa-image fa-3x mb-2 opacity-30"></i>
+                                    <p class="mb-0 small fw-bold">No Image Assigned</p>
+                                </div>
+                            }
                         </div>
-                        <div>
-                            <span class="fw-bold text-dark">Color HEX Code:</span> <code>@Model.ColorHexCode</code>
+                    </div>
+
+                    <!-- Upload New Variant Image -->
+                    <div class="col-sm-6">
+                        <label class="form-label font-weight-bold text-dark d-block">Upload New Image</label>
+                        <div class="custom-file-upload border rounded p-3 text-center bg-light d-flex flex-column align-items-center justify-content-center" style="border: 2px dashed #cbd5e1 !important; border-radius: 12px !important; transition: all 0.3s ease; height: 180px;">
+                            <input type="file" name="imageFile" id="imageFile" class="d-none" accept="image/*" onchange="previewImage(event)" />
+                            
+                            <div id="uploadPromptEdit">
+                                <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                <h6 class="mb-1 font-weight-bold small text-dark">Select New Image</h6>
+                                <label for="imageFile" class="btn btn-outline-primary btn-xs px-3" style="border-radius: 8px; cursor: pointer; font-size:0.75rem;">Browse</label>
+                            </div>
+                            
+                            <!-- New Preview Container -->
+                            <div id="variantPreviewContainer" style="display:none;" class="w-100">
+                                <img id="variantPreview" src="#" alt="New Preview" class="img-fluid rounded shadow-sm" style="max-height: 100px; object-fit: contain;" />
+                                <br/>
+                                <label for="imageFile" class="btn btn-xs btn-outline-secondary mt-2" style="border-radius: 8px; cursor: pointer; font-size:0.75rem;"><i class="fas fa-exchange-alt mr-1"></i> Change</label>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Stock Quantity -->
-                    <div class="form-group mb-3">
-                        <label asp-for="StockQuantity" class="form-label fw-bold">Stock Quantity</label>
-                        <input type="number" asp-for="StockQuantity" class="form-control" placeholder="0" min="0" required />
-                        <span asp-validation-for="StockQuantity" class="text-danger"></span>
-                    </div>
-
-                    <!-- Current Image Preview -->
-                    <div class="form-group mb-3">
-                        <label class="form-label fw-bold d-block">Current Variant Image</label>
-                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                        {
-                            <img src="/img/@Model.ImageUrl" alt="Current Image" class="img-thumbnail mb-2" style="max-height: 150px; object-fit: contain;" />
-                        }
-                        else
-                        {
-                            <span class="text-muted d-block mb-2">No image currently assigned.</span>
-                        }
-                    </div>
-
-                    <!-- Upload New Image -->
-                    <div class="form-group mb-3">
-                        <label class="form-label fw-bold">Upload New Image (Optional)</label>
-                        <input type="file" name="imageFile" class="form-control" accept="image/*" onchange="previewImage(event)" />
-                        <small class="text-muted">Replaces the current image if uploaded.</small>
-                    </div>
-
-                    <!-- New Preview Thumbnail -->
-                    <div class="form-group mb-2 text-center" id="variantPreviewContainer" style="display:none;">
-                        <label class="form-label fw-bold d-block">New Image Preview</label>
-                        <img id="variantPreview" src="#" alt="New Preview" class="img-thumbnail" style="max-height: 150px; object-fit: contain;" />
                     </div>
                 </div>
 
-                <div class="card-footer bg-white border-top">
-                    <button type="submit" class="btn btn-primary w-100"><i class="fas fa-save"></i> Save Changes</button>
+                <hr class="mb-4" />
+
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn km-btn-gradient px-5 py-2" style="background: linear-gradient(135deg, #00c2a8 0%, #00a890 100%); box-shadow: 0 6px 15px rgba(0, 194, 168, 0.3); font-size: 1.1rem;">
+                        <i class="fas fa-save mr-2"></i> Save Changes
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<style>
+    .km-input:focus {
+        border-color: #00c2a8;
+        box-shadow: none;
+    }
+    .input-group-text {
+        border-radius: 10px 0 0 10px;
+    }
+    .km-input {
+        border-radius: 0 10px 10px 0;
+    }
+    .custom-file-upload:hover {
+        background-color: #e6f9f6 !important;
+        border-color: #00c2a8 !important;
+    }
+</style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
@@ -93,6 +128,7 @@
         function previewImage(event) {
             const input = event.target;
             const previewContainer = document.getElementById('variantPreviewContainer');
+            const prompt = document.getElementById('uploadPromptEdit');
             const previewImg = document.getElementById('variantPreview');
 
             if (input.files && input.files[0]) {
@@ -100,11 +136,13 @@
                 reader.onload = function(e) {
                     previewImg.src = e.target.result;
                     previewContainer.style.display = 'block';
+                    prompt.style.display = 'none';
                 }
                 reader.readAsDataURL(input.files[0]);
             } else {
                 previewImg.src = '#';
                 previewContainer.style.display = 'none';
+                prompt.style.display = 'block';
             }
         }
     </script>

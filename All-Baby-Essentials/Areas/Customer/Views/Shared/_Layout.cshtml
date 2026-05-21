@@ -28,7 +28,7 @@
 
 <!-- Loader -->
 <div id="pre-loader" role="status" aria-label="Loading">
-    <div class="km-spinner"></div>
+    <img src="~/img/KiddoMart.png" alt="Loading..." class="km-pulse-logo" />
 </div>
 
 <!-- Promo Bar -->
@@ -55,7 +55,31 @@
         <nav aria-label="Main navigation">
             <ul class="km-nav-desktop">
                 <li><a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-area="Customer" asp-controller="Category" asp-action="Index">Categories</a></li>
+                
+                <li class="km-nav-dropdown">
+                    <a asp-area="Customer" asp-controller="Category" asp-action="Index" style="cursor: pointer;">Categories <i class="bi bi-chevron-down ms-1" style="font-size: 0.75rem;"></i></a>
+                    <ul class="km-dropdown-menu">
+                        @inject All_Baby_Essentials.Data.ApplicationDbContext _context
+                        @{
+                            var navCategories = _context.Categories.Where(c => !c.IsDeleted).ToList();
+                        }
+                        @foreach(var cat in navCategories)
+                        {
+                            <li>
+                                <a asp-area="Customer" asp-controller="Product" asp-action="Index" asp-route-categoryId="@cat.Id">
+                                    <i class="bi bi-box-seam me-1 text-muted"></i> @cat.Name
+                                </a>
+                            </li>
+                        }
+                        <li><hr /></li>
+                        <li>
+                            <a asp-area="Customer" asp-controller="Category" asp-action="Index" class="text-primary fw-bold">
+                                View All Categories <i class="bi bi-arrow-right ms-auto"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
                 <li><a asp-area="Customer" asp-controller="Product" asp-action="Index">Products</a></li>
                 <li><a asp-area="Customer" asp-controller="Contact" asp-action="Index">Contact</a></li>
             </ul>
@@ -287,7 +311,12 @@
     // Loader
     window.addEventListener('load', () => {
         const loader = document.getElementById('pre-loader');
-        if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 500); }
+        if (loader) { 
+            setTimeout(() => {
+                loader.classList.add('hidden'); 
+                setTimeout(() => loader.remove(), 500); 
+            }, 1000); // 1-second delay before hiding
+        }
     });
 
     // Mobile menu

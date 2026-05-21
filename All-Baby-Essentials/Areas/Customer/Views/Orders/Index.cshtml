@@ -1,39 +1,68 @@
 @model List<All_Baby_Essentials.Models.Order>
 
-<div class="container mt-4">
+<!-- Page Header -->
+<div class="km-page-header" data-aos="fade-down" style="padding: 3rem 0; margin-bottom: 2rem;">
+    <div class="container" style="max-width:1280px;">
+        <h1>My Orders</h1>
+        <p>View your past orders and their status.</p>
+        <div class="km-breadcrumb justify-content-center mt-3">
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+            <span class="sep">/</span>
+            <span style="color:#fff;">My Orders</span>
+        </div>
+    </div>
+</div>
 
-    <h2>My Orders</h2>
-
-    <table class="table table-bordered">
-
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Date</th>
-                <th>Total</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var order in Model)
-            {
-                <tr>
-                    <td>#@order.Id</td>
-                    <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
-                    <td>$@order.TotalAmount</td>
-                    <td>@order.Status</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@order.Id"
-                           class="btn btn-sm btn-primary">
-                            View
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-
-    </table>
-
+<div class="container mb-5" style="max-width: 1280px; min-height: 40vh;">
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table mb-0 align-middle">
+                <thead style="background-color: var(--km-primary-light);">
+                    <tr>
+                        <th class="py-3 px-4 border-0">Order ID</th>
+                        <th class="py-3 px-4 border-0">Date</th>
+                        <th class="py-3 px-4 border-0">Total</th>
+                        <th class="py-3 px-4 border-0">Status</th>
+                        <th class="py-3 px-4 border-0 text-end">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted">You have no orders yet.</td>
+                        </tr>
+                    }
+                    @foreach (var order in Model)
+                    {
+                        <tr class="border-bottom">
+                            <td class="py-3 px-4 fw-bold">#@order.Id</td>
+                            <td class="py-3 px-4 text-muted">@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                            <td class="py-3 px-4 fw-bold" style="color: var(--km-primary);">$@order.TotalAmount</td>
+                            <td class="py-3 px-4">
+                                @{
+                                    var badgeClass = order.Status switch
+                                    {
+                                        All_Baby_Essentials.Models.OrderStatus.Completed => "bg-success",
+                                        All_Baby_Essentials.Models.OrderStatus.Processing => "bg-warning text-dark",
+                                        All_Baby_Essentials.Models.OrderStatus.Cancelled => "bg-danger",
+                                        _ => "bg-secondary"
+                                    };
+                                }
+                                <span class="badge @badgeClass rounded-pill px-3 py-2">
+                                    @order.Status
+                                </span>
+                            </td>
+                            <td class="py-3 px-4 text-end">
+                                <a asp-action="Details" asp-route-id="@order.Id"
+                                   class="km-btn km-btn-outline km-btn-sm">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

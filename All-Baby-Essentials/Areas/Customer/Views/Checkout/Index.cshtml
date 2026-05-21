@@ -2,19 +2,17 @@
 
 <div id="page-content">
 
-    <!-- Breadcrumbs -->
-    <div class="breadcrumbs-wrapper">
-        <div class="container">
-            <div class="breadcrumbs">
-                <a href="/">Home</a>
-                <span>|</span>
-                <span>Checkout</span>
+    <!-- Page Header -->
+    <div class="km-page-header" data-aos="fade-down" style="padding: 3rem 0; margin-bottom: 2rem;">
+        <div class="container" style="max-width:1280px;">
+            <h1>Secure Checkout</h1>
+            <p>Complete your order securely and fast.</p>
+            <div class="km-breadcrumb justify-content-center mt-3">
+                <a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+                <span class="sep">/</span>
+                <span style="color:#fff;">Checkout</span>
             </div>
         </div>
-    </div>
-
-    <div class="page-title">
-        <h1>Checkout</h1>
     </div>
 
     <div class="container">
@@ -40,88 +38,50 @@
 
                             <div class="row">
 
-                                <div class="form-group col-md-6 mb-3">
-
-                                    <label>Full Name *</label>
-
-                                    <input asp-for="FullName"
-                                           class="form-control" />
-
-                                    <span asp-validation-for="FullName"
-                                          class="text-danger"></span>
-
+                                <div class="col-md-6 mb-3">
+                                    <label class="km-label">Full Name *</label>
+                                    <input asp-for="FullName" class="km-form-control" />
+                                    <span asp-validation-for="FullName" class="text-danger"></span>
                                 </div>
-
-                                <div class="form-group col-md-6 mb-3">
-
-                                    <label>Email *</label>
-
-                                    <input asp-for="Email"
-                                           class="form-control" />
-
-                                    <span asp-validation-for="Email"
-                                          class="text-danger"></span>
-
+                                <div class="col-md-6 mb-3">
+                                    <label class="km-label">Email *</label>
+                                    <input asp-for="Email" class="km-form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
 
                             </div>
 
                             <div class="row">
 
-                                <div class="form-group col-md-6 mb-3">
-
-                                    <label>Phone Number *</label>
-
-                                    <input asp-for="PhoneNumber"
-                                           class="form-control" />
-
-                                    <span asp-validation-for="PhoneNumber"
-                                          class="text-danger"></span>
-
+                                <div class="col-md-6 mb-3">
+                                    <label class="km-label">Phone Number *</label>
+                                    <input asp-for="PhoneNumber" class="km-form-control" />
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                 </div>
-
-                                <div class="form-group col-md-6 mb-3">
-
-                                    <label>City *</label>
-
-                                    <input asp-for="City"
-                                           class="form-control" />
-
-                                    <span asp-validation-for="City"
-                                          class="text-danger"></span>
-
+                                <div class="col-md-6 mb-3">
+                                    <label class="km-label">City *</label>
+                                    <input asp-for="City" class="km-form-control" />
+                                    <span asp-validation-for="City" class="text-danger"></span>
                                 </div>
 
                             </div>
 
                             <div class="row">
 
-                                <div class="form-group col-md-12 mb-3">
-
-                                    <label>Shipping Address *</label>
-
-                                    <input asp-for="ShippingAddress"
-                                           class="form-control" />
-
-                                    <span asp-validation-for="ShippingAddress"
-                                          class="text-danger"></span>
-
+                                <div class="col-md-12 mb-3">
+                                    <label class="km-label">Shipping Address *</label>
+                                    <input asp-for="ShippingAddress" class="km-form-control" />
+                                    <span asp-validation-for="ShippingAddress" class="text-danger"></span>
                                 </div>
 
                             </div>
 
                             <div class="row">
 
-                                <div class="form-group col-md-12 mb-3">
-
-                                    <label>Country *</label>
-
-                                    <input asp-for="Country"
-                                           class="form-control" />
-
-                                    <span asp-validation-for="Country"
-                                          class="text-danger"></span>
-
+                                <div class="col-md-12 mb-3">
+                                    <label class="km-label">Country *</label>
+                                    <input asp-for="Country" class="km-form-control" />
+                                    <span asp-validation-for="Country" class="text-danger"></span>
                                 </div>
 
                             </div>
@@ -224,7 +184,7 @@
                         <button type="submit"
                                 form="checkoutForm"
                                 id="checkoutSubmitBtn"
-                                class="btn btn-success w-100 btn-lg fw-bold">
+                                class="km-btn km-btn-primary km-btn-block km-btn-lg mt-3">
 
                             Pay With Card
 
@@ -255,11 +215,11 @@
 
             function updateBtn() {
                 if (cardRadio.checked) {
-                    btn.textContent = 'Pay With Card';
-                    btn.className = 'btn btn-primary w-100 btn-lg fw-bold';
+                    btn.innerHTML = '<i class="bi bi-credit-card me-2"></i> Pay With Card';
+                    btn.className = 'km-btn km-btn-primary km-btn-block km-btn-lg mt-3';
                 } else {
-                    btn.textContent = 'Place Order (Cash on Delivery)';
-                    btn.className = 'btn btn-success w-100 btn-lg fw-bold';
+                    btn.innerHTML = '<i class="bi bi-cash-coin me-2"></i> Place Order (COD)';
+                    btn.className = 'km-btn km-btn-accent km-btn-block km-btn-lg mt-3';
                 }
             }
 

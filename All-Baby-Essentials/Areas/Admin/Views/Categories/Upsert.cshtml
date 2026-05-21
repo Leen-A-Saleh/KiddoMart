@@ -1,60 +1,105 @@
-@model All_Baby_Essentials.Areas.Admin.ViewModels.CategoryVM
+﻿@model All_Baby_Essentials.Areas.Admin.ViewModels.CategoryVM
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = Model?.Id == null ? "Create Category" : "Edit Category";
 }
 
-@section Title {
-           Categories
-}
+<div class="category-dashboard-container mt-4" style="max-width: 800px; margin: 0 auto;">
+    <div class="d-flex justify-content-between align-items-center mb-4 px-3">
+        <div>
+            <h2 class="mb-1" style="font-weight: 800; color: #2b3445; letter-spacing: -0.5px;">
+                <i class="fas @(Model?.Id == null ? "fa-plus-circle" : "fa-edit") text-primary mr-2" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i> 
+                @(Model?.Id == null ? "Create New Category" : "Edit Category")
+            </h2>
+            <p class="text-muted mb-0" style="font-size: 0.95rem;">
+                @(Model?.Id == null ? "Add a new category to organize your products." : "Update the details of the existing category.")
+            </p>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary" style="border-radius: 10px;">
+            <i class="fas fa-arrow-left mr-1"></i> Back to List
+        </a>
+    </div>
 
-@section SubTitle {
-    @(Model?.Id == null ? "Create new category" : "Edit category")
-}
+    <div class="card border-0 km-card-glass shadow-lg">
+        <div class="card-body p-5">
+            <form class="form-horizontal" asp-area="Admin" asp-controller="Categories" asp-action="@(Model?.Id == null ? "Create" : "Edit")" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                
+                @if (Model?.Id != null)
+                {
+                    <input type="hidden" asp-for="Id" />
+                }
 
+                <div class="form-group mb-4">
+                    <label asp-for="Name" class="form-label font-weight-bold text-dark">Category Name <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white border-right-0"><i class="fas fa-tag text-muted"></i></span>
+                        </div>
+                        <input type="text" asp-for="Name" class="form-control border-left-0 km-input" placeholder="e.g. Baby Clothes" style="box-shadow:none;" />
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>
+                </div>
 
-<!-- form start -->
-<form class="form-horizontal" asp-area="Admin" asp-controller="Categories"enctype="multipart/form-data">
+                <div class="form-group mb-4">
+                    <label asp-for="Description" class="form-label font-weight-bold text-dark">Description</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white border-right-0 align-items-start pt-2"><i class="fas fa-align-left text-muted"></i></span>
+                        </div>
+                        <textarea asp-for="Description" class="form-control border-left-0 km-input" rows="4" placeholder="Briefly describe this category..." style="box-shadow:none;"></textarea>
+                    </div>
+                    <span asp-validation-for="Description" class="text-danger small mt-1 d-block"></span>
+                </div>
 
-    @Html.AntiForgeryToken()
+                <div class="form-group mb-5">
+                    <label class="form-label font-weight-bold text-dark">Category Image</label>
+                    <div class="custom-file-upload border rounded p-4 text-center bg-light" style="border: 2px dashed #cbd5e1 !important; border-radius: 12px !important; transition: all 0.3s ease;">
+                        <input type="file" name="ImageFile" id="ImageFile" class="d-none" accept="image/*" onchange="previewImage(event)" />
+                        
+                        <div id="uploadPrompt" class="@(string.IsNullOrEmpty(Model?.ImageUrl) ? "" : "d-none")">
+                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                            <h6 class="mb-1 font-weight-bold">Upload an Image</h6>
+                            <p class="text-muted small mb-3">PNG, JPG or WEBP (Max 2MB)</p>
+                            <label for="ImageFile" class="btn btn-outline-primary btn-sm px-4" style="border-radius: 8px; cursor: pointer;">Browse Files</label>
+                        </div>
+                        
+                        <div id="imagePreviewContainer" class="@(string.IsNullOrEmpty(Model?.ImageUrl) ? "d-none" : "")">
+                            <img id="imagePreview" src="@(string.IsNullOrEmpty(Model?.ImageUrl) ? "#" : "/img/upload/" + Model.ImageUrl)" alt="Category Preview" class="img-fluid rounded shadow-sm mb-3" style="max-height: 200px; object-fit: contain;" />
+                            <br/>
+                            <label for="ImageFile" class="btn btn-sm btn-outline-secondary" style="border-radius: 8px; cursor: pointer;"><i class="fas fa-exchange-alt mr-1"></i> Change Image</label>
+                        </div>
+                    </div>
+                </div>
 
+                <hr class="mb-4" />
 
-    <div class="card-body">
-        <div class="form-group row">
-
-            <label asp-for="Name" class="col-12 col-form-label"></label>
-            <div class="col-12">
-                <input type="text" asp-for="Name" class="form-control" placeholder="Category Name" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-
-            <label asp-for="Description" class="col-12 col-form-label"></label>
-            <div class="col-12">
-                <input type="text" asp-for="Description" class="form-control" placeholder="Category Description" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-
-            <label class="col-12 col-form-label mt-3">Category Image</label>
-            <div class="col-12">
-                <input type="file" name="ImageFile" class="form-control" accept="image/*" onchange="previewImage(event)" />
-            </div>
-
-            <div class="col-12 mt-3">
-                <img id="imagePreview" src="@(string.IsNullOrEmpty(Model?.ImageUrl) ? "/img/default.png" : "/img/" + Model.ImageUrl)"
-                     alt="Category Image" class="img-thumbnail" style="max-width: 200px;" />
-            </div>
-
+                <div class="d-flex justify-content-end gap-3">
+                    <button type="submit" class="btn km-btn-gradient px-5 py-2" style="font-size: 1.1rem;">
+                        <i class="fas @(Model?.Id == null ? "fa-check-circle" : "fa-save") mr-2"></i> @(Model?.Id == null ? "Create Category" : "Save Changes")
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    <div class="card-footer">
-        <button type="submit" class="btn btn-primary">
-            @(Model?.Id == null ? "Add" : "Update")
-
-        </button>
-    </div>
-</form>
+<style>
+    .km-input:focus {
+        border-color: #4facfe;
+        box-shadow: none;
+    }
+    .input-group-text {
+        border-radius: 10px 0 0 10px;
+    }
+    .km-input {
+        border-radius: 0 10px 10px 0;
+    }
+    .custom-file-upload:hover {
+        background-color: #f8fafc !important;
+        border-color: #4facfe !important;
+    }
+</style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
@@ -62,10 +107,20 @@
     <script>
         function previewImage(event) {
             const input = event.target;
+            const previewContainer = document.getElementById('imagePreviewContainer');
+            const uploadPrompt = document.getElementById('uploadPrompt');
             const preview = document.getElementById('imagePreview');
 
             if (input.files && input.files[0]) {
                 preview.src = URL.createObjectURL(input.files[0]);
+                previewContainer.classList.remove('d-none');
+                uploadPrompt.classList.add('d-none');
+            } else {
+                // If they cancel selection and there was no image previously
+                if (preview.src === "" || preview.src.includes("#")) {
+                    previewContainer.classList.add('d-none');
+                    uploadPrompt.classList.remove('d-none');
+                }
             }
         }
     </script>

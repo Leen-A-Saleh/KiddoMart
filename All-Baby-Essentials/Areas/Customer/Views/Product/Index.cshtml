@@ -36,17 +36,23 @@
                     <div class="mb-4">
                         <label class="km-label mb-3">Categories</label>
                         <div class="d-flex flex-column gap-2">
-                            <label class="d-flex align-items-center gap-2" style="cursor:pointer;">
-                                <input type="radio" name="categoryId" value="" @(ViewBag.CategoryId == null ? "checked" : "") />
-                                <span class="text-muted">All Categories</span>
+                            <label class="km-filter-item w-100 mb-1">
+                                <input type="radio" name="categoryId" value="" @(ViewBag.CategoryId == null ? "checked" : "") onchange="this.form.submit()" class="d-none" />
+                                <div class="km-filter-content">
+                                    <span class="km-filter-text">All Categories</span>
+                                    <i class="bi bi-check-circle-fill km-filter-icon"></i>
+                                </div>
                             </label>
                             @if (ViewBag.Categories != null)
                             {
                                 foreach (var cat in ViewBag.Categories)
                                 {
-                                    <label class="d-flex align-items-center gap-2" style="cursor:pointer;">
-                                        <input type="radio" name="categoryId" value="@cat.Id" @(ViewBag.CategoryId == cat.Id ? "checked" : "") />
-                                        <span class="text-muted">@cat.Name</span>
+                                    <label class="km-filter-item w-100 mb-1">
+                                        <input type="radio" name="categoryId" value="@cat.Id" @(ViewBag.CategoryId == cat.Id ? "checked" : "") onchange="this.form.submit()" class="d-none" />
+                                        <div class="km-filter-content">
+                                            <span class="km-filter-text">@cat.Name</span>
+                                            <i class="bi bi-check-circle-fill km-filter-icon"></i>
+                                        </div>
                                     </label>
                                 }
                             }
@@ -95,7 +101,7 @@
                     <!-- Sort -->
                     <div class="mb-4">
                         <label class="km-label mb-3">Sort By</label>
-                        <select name="sortBy" class="km-form-control">
+                        <select name="sortBy" class="km-form-control" onchange="this.form.submit()">
                             <option value="">Newest Arrivals</option>
                             <option value="price_asc">Price: Low to High</option>
                             <option value="price_desc">Price: High to Low</option>
@@ -136,7 +142,7 @@
                     @foreach (var item in Model.Items)
                     {
                         var img = item.Images.FirstOrDefault(x => x.IsMain)?.ImageUrl ?? item.Images.FirstOrDefault()?.ImageUrl;
-                        var imgSrc = img != null ? $"/img/{img}" : "/img/no-image.png";
+                        var imgSrc = img != null ? $"/img/upload/{img}" : "/img/no-image.png";
 
                         <article class="km-product-card @(item.StockQuantity <= 0 ? "out-of-stock" : "")">
                             @if (item.DiscountPercentage.HasValue && item.DiscountPercentage.Value > 0)
@@ -158,7 +164,14 @@
                                         <i class="bi bi-bag-plus"></i> Add
                                     </button>
                                     <button type="button" class="km-product-action-btn add-to-wishlist-btn" data-id="@item.Id" aria-label="Add to wishlist">
-                                        <i class="bi bi-heart"></i>
+                                        @if (item.IsInWishlist)
+                                        {
+                                            <i class="bi bi-heart-fill" style="color: var(--km-accent);"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-heart"></i>
+                                        }
                                     </button>
                                     <button type="button" class="km-product-action-btn quick-view-btn" data-id="@item.Id" aria-label="Quick view">
                                         <i class="bi bi-eye"></i>
@@ -257,4 +270,47 @@
 .page-item .page-link:hover { 
     background-color: var(--km-primary-light); color: var(--km-primary);
 }
+
+/* ── FILTER CSS OVERRIDES ── */
+.km-filter-item {
+    cursor: pointer;
+    user-select: none;
+}
+.km-filter-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--km-radius-sm);
+    background: var(--km-surface);
+    border: 1px solid var(--km-border);
+    transition: all 0.2s ease;
+    color: var(--km-muted);
+}
+.km-filter-item:hover .km-filter-content {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: var(--km-text);
+}
+.km-filter-text {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+.km-filter-icon {
+    font-size: 1.1rem;
+    color: var(--km-primary);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+.km-filter-item input:checked + .km-filter-content {
+    background: var(--km-primary-light);
+    border-color: var(--km-primary);
+    color: var(--km-primary);
+}
+.km-filter-item input:checked + .km-filter-content .km-filter-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
 </style>

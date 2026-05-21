@@ -49,6 +49,8 @@ $(document).ready(function () {
                 $('#cartCountBadge').text(res.count);
                 btn.html('<i class="bi bi-check-lg"></i> Added');
                 setTimeout(() => btn.html(originalHtml).prop('disabled', false), 2000);
+                // Show elegant success toast
+                showElegantToast('Added to Cart', 'Item was successfully added to your cart.', 'success');
                 
                 // Show Offcanvas automatically
                 if (cartOffcanvasEl) {
@@ -74,8 +76,9 @@ $(document).ready(function () {
         $.post('/Customer/Wishlist/AddAjax', { productId: productId }, function (res) {
             if (res.success) {
                 $('#wishlistBadgeCount').text(res.count); // If element exists
-                btn.html('<i class="bi bi-heart-fill text-danger"></i>');
-                setTimeout(() => btn.html(originalHtml).prop('disabled', false), 2000);
+                // Keep the heart filled to indicate it's in the wishlist
+                btn.html('<i class="bi bi-heart-fill" style="color: var(--km-accent); font-size: 1.2rem; transform: scale(1.1); transition: all 0.2s ease;"></i>');
+                btn.prop('disabled', false); // re-enable button without reverting HTML
 
                 if (wishlistOffcanvasEl) {
                     var offcanvas = bootstrap.Offcanvas.getOrCreateInstance(wishlistOffcanvasEl);
@@ -188,5 +191,39 @@ $(document).ready(function () {
             $('#quickViewModalBody').html('<div class="text-center text-danger py-5">Failed to load product details.</div>');
         });
     });
+
+    // --- Custom Elegant Toast Function ---
+    function showElegantToast(title, message, type = 'success') {
+        const toastId = 'toast-' + Math.random().toString(36).substr(2, 9);
+        const icon = type === 'success' ? '<i class="bi bi-check-circle-fill" style="color: var(--km-accent); font-size: 1.5rem;"></i>' : '<i class="bi bi-info-circle-fill" style="color: var(--km-primary); font-size: 1.5rem;"></i>';
+        
+        const toastHtml = `
+            <div id="${toastId}" class="toast align-items-center border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" style="background: var(--km-surface); border-radius: var(--km-radius-sm); border-left: 4px solid var(--km-accent);">
+              <div class="d-flex">
+                <div class="toast-body d-flex align-items-center gap-3 py-3 px-4">
+                  ${icon}
+                  <div>
+                      <strong class="d-block text-dark" style="font-family: var(--km-font-brand); font-size: 1.05rem;">${title}</strong>
+                      <span class="text-muted" style="font-size: 0.9rem;">${message}</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            </div>
+        `;
+        
+        if ($('#toast-container').length === 0) {
+            $('body').append('<div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1080;"></div>');
+        }
+        
+        $('#toast-container').append(toastHtml);
+        const toastElement = document.getElementById(toastId);
+        const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
+        toast.show();
+        
+        toastElement.addEventListener('hidden.bs.toast', function () {
+            $(this).remove();
+        });
+    }
 
 });

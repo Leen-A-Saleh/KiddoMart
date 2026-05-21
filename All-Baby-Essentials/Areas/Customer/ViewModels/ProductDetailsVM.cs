@@ -25,5 +25,6 @@ namespace All_Baby_Essentials.Areas.Customer.ViewModels
 
         public List<ProductReviewVM> Reviews { get; set; } = new();
         public List<ProductColorVM> ProductColors { get; set; } = new();
+        public bool IsInWishlist { get; set; }
     }
 }

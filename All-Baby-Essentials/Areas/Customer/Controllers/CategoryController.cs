@@ -25,6 +25,7 @@ namespace All_Baby_Essentials.Areas.Customer.Controllers
         public async Task<IActionResult> Index()
         {
             var categories = await _context.Categories
+                .Include(c => c.Products)
                 .Where(c => !c.IsDeleted)
                 .ToListAsync();
 

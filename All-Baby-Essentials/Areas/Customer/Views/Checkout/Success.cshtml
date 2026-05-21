@@ -59,7 +59,7 @@
 }
 .km-success-ring {
     position: absolute; inset: 0; border-radius: 50%;
-    border: 4px solid var(--km-pink-light);
+    border: 4px solid var(--km-accent);
     animation: pulse-ring 1.5s ease-out infinite;
 }
 @@keyframes pulse-ring {
@@ -68,10 +68,10 @@
 }
 .km-success-check {
     position: absolute; inset: 0; border-radius: 50%;
-    background: linear-gradient(135deg, var(--km-pink), var(--km-pink-dark));
+    background: linear-gradient(135deg, var(--km-accent), var(--km-primary));
     display: flex; align-items: center; justify-content: center;
     font-size: 2.5rem; color: #fff;
-    box-shadow: 0 8px 32px rgba(255,107,157,0.4);
+    box-shadow: 0 8px 32px rgba(0,194,168,0.4);
     animation: pop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
 }
 @@keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
@@ -84,14 +84,14 @@
     display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
     font-size: 0.75rem; font-weight: 600; color: var(--km-muted);
 }
-.km-success-step.active { color: var(--km-pink); }
+.km-success-step.active { color: var(--km-accent); }
 .km-step-icon {
     width: 44px; height: 44px; border-radius: 50%;
     background: var(--km-border); color: var(--km-muted);
     display: flex; align-items: center; justify-content: center;
     font-size: 1.1rem; transition: var(--transition);
 }
-.km-success-step.active .km-step-icon { background: var(--km-pink); color: #fff; }
+.km-success-step.active .km-step-icon { background: var(--km-accent); color: #fff; }
 .km-step-line {
     flex: 1; height: 2px; background: var(--km-border);
     min-width: 40px; max-width: 80px;
